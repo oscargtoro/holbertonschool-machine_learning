@@ -20,4 +20,3 @@ def add_arrays(arr1, arr2):
         for idx in range(len(arr1)):
             add_arr.append(arr1[idx] + arr2[idx])
         return add_arr
-
