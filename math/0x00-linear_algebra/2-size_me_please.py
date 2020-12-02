@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+'''Finds the shape of a multidimensional matrix
+'''
 
 
 def get_shape(matrix, shape):
