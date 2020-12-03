@@ -137,3 +137,16 @@ The bottom-right, square, 3x3 matrix is:
  [16 17 18]
  [22 23 24]]
 ```
+
+# 10-ill_use_my_scale.py
+
+Calculates the shape of a **_numpy.ndarray_** defined in **_10-main.py_**.
+
+## Usage
+
+```
+(holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./10-main.py
+(6,)
+(0,)
+(2, 2, 5)
+```
