@@ -15,6 +15,8 @@ def cat_matrices2D(mat1, mat2, axis=0):
     '''
 
     cat_matrix = []
+    if len(mat1) != len(mat2):
+        return None
     if axis == 1:
         for el1, el2 in zip(mat1, mat2):
             conc_mat = [x for x in el1]
