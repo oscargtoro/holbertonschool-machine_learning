@@ -26,5 +26,5 @@ def cat_matrices2D(mat1, mat2, axis=0):
             cat_matrix.extend([[x for x in row] for row in mat1])
             cat_matrix.extend([[x for x in row] for row in mat2])
             return cat_matrix
-    except TypeError:
+    except (TypeError, ValueError):
         return None
