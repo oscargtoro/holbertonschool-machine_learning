@@ -239,3 +239,17 @@ Concatenates two matrices defined in **_13-main.py_** along a specific axis.
 [[11 22 33  7]
  [44 55 66  8]]
 ```
+
+# 14-saddle_up.py
+
+Performs matrix multiplication on two numpy ndarrays defined in **_14-main.py_**.
+
+## Usage
+
+```
+(holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./14-main.py
+[[ 330  396  462]
+ [ 726  891 1056]]
+[[ 550]
+ [1342]]
+```
