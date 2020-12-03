@@ -183,3 +183,41 @@ Transpose a **_numpy.ndarray_** defined in **_11-main.py_**.
  [[11 12 13 14 15]
   [16 17 18 19 20]]]
 ```
+
+# 12-bracin_the_elements.py
+
+Performs element-wise addition, substraction, multiplication and division of two matrices defined in **_12-main.py_**.
+
+## Usage
+
+```
+(holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./12-main.py
+[[11 22 33]
+ [44 55 66]]
+[[1 2 3]
+ [4 5 6]]
+Add:
+ [[12 24 36]
+ [48 60 72]]
+Sub:
+ [[10 20 30]
+ [40 50 60]]
+Mul:
+ [[ 11  44  99]
+ [176 275 396]]
+Div:
+ [[11. 11. 11.]
+ [11. 11. 11.]]
+Add:
+ [[13 24 35]
+ [46 57 68]]
+Sub:
+ [[ 9 20 31]
+ [42 53 64]]
+Mul:
+ [[ 22  44  66]
+ [ 88 110 132]]
+Div:
+ [[ 5.5 11.  16.5]
+ [22.  27.5 33. ]]
+```
