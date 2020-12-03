@@ -13,7 +13,7 @@ def add_arrays(arr1, arr2):
         A list with the two arrays added.
     '''
 
-    if len(arr1) > len(arr2):
+    if len(arr1) != len(arr2):
         return None
     else:
         add_arr = []
