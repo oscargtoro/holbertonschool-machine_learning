@@ -111,3 +111,29 @@ Multiplies two matrices defined in **_8-main.py_**. If the matrices can't be mul
 (holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./8-main.py
 [[11, 14, 17, 20], [23, 30, 37, 44], [35, 46, 57, 68]]
 ```
+
+# 9-let_the_butcher_slice_it.py
+
+Code completion:
+
+- **_mat1_** should be the middle two rows of **_matrix_**
+- **_mat2_** should be the middle two columns of **_matrix_**
+- **_mat3_** should be the bottom-right, square, 3x3 matrix of **_matrix_**
+
+## Usage
+
+```
+(holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./9-let_the_butcher_slice_it.py
+The middle two rows of the matrix are:
+[[ 7  8  9 10 11 12]
+ [13 14 15 16 17 18]]
+The middle two columns of the matrix are:
+[[ 3  4]
+ [ 9 10]
+ [15 16]
+ [21 22]]
+The bottom-right, square, 3x3 matrix is:
+[[10 11 12]
+ [16 17 18]
+ [22 23 24]]
+```
