@@ -77,9 +77,26 @@ None
 
 Concatenates two arrays defined in **_6-main.py_**. Returns a new list.
 
+## Usage
+
 ```
 (holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./6-main.py
 [1, 2, 3, 4, 5, 6, 7, 8]
 [1, 2, 3, 4, 5]
 [6, 7, 8]
+```
+
+# 7-gettin_cozy.py
+
+Concatenates two matrices along a specific axis defined in **_7-main.py_**, if axis is not specified defaults to **_zero_**. If the matrices can't be concatenated returns None.
+
+## Usage
+
+```
+holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./7-main.py
+[[1, 2], [3, 4], [5, 6]]
+[[1, 2, 7], [3, 4, 8]]
+[[9, 10], [3, 4, 5]]
+[[1, 2], [3, 4], [5, 6]]
+[[1, 2, 7], [3, 4, 8]]
 ```
