@@ -47,7 +47,7 @@ Returns the transpose of the matrix defined in **_3-main.py_**.
 
 # 4-line_up.py
 
-Adds two arrays defined in **_4-main.py_** element-wise.
+Adds two arrays defined in **_4-main.py_** element-wise, if the shape of the two arrays is not the same returns **_None_**.
 
 ## Usage
 
@@ -56,5 +56,19 @@ Adds two arrays defined in **_4-main.py_** element-wise.
 [6, 8, 10, 12]
 [1, 2, 3, 4]
 [5, 6, 7, 8]
+None
+```
+
+# 5-across_the_planes.py
+
+Adds two matrices defined in **_5-main.py_** element-wise, if the shape of the two matrices is not the same returns **_None_**. Works only in 2D matrices.
+
+## Usage
+
+```
+(holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./5-main.py
+[[6, 8], [10, 12]]
+[[1, 2], [3, 4]]
+[[5, 6], [7, 8]]
 None
 ```
