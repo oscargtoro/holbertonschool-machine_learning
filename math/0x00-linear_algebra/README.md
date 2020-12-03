@@ -88,15 +88,26 @@ Concatenates two arrays defined in **_6-main.py_**. Returns a new list.
 
 # 7-gettin_cozy.py
 
-Concatenates two matrices along a specific axis defined in **_7-main.py_**, if axis is not specified defaults to **_zero_**. If the matrices can't be concatenated returns None.
+Concatenates two matrices along a specific axis defined in **_7-main.py_**, if axis is not specified defaults to **_zero_**. If the matrices can't be concatenated returns **_None_**.
 
 ## Usage
 
 ```
-holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./7-main.py
+(holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./7-main.py
 [[1, 2], [3, 4], [5, 6]]
 [[1, 2, 7], [3, 4, 8]]
 [[9, 10], [3, 4, 5]]
 [[1, 2], [3, 4], [5, 6]]
 [[1, 2, 7], [3, 4, 8]]
+```
+
+# 8-ridin_bareback.py
+
+Multiplies two matrices defined in **_8-main.py_**. If the matrices can't be multiplied returns **_None_**.
+
+## Usage
+
+```
+(holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./8-main.py
+[[11, 14, 17, 20], [23, 30, 37, 44], [35, 46, 57, 68]]
 ```
