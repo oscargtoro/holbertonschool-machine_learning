@@ -150,3 +150,36 @@ Calculates the shape of a **_numpy.ndarray_** defined in **_10-main.py_**.
 (0,)
 (2, 2, 5)
 ```
+
+# 11-the_western_exchange.py
+
+Transpose a **_numpy.ndarray_** defined in **_11-main.py_**.
+
+## Usage
+
+```
+(holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./11-main.py
+[1 2 3 4 5 6]
+[1 2 3 4 5 6]
+[]
+[]
+[[[ 1 11]
+  [ 6 16]]
+
+ [[ 2 12]
+  [ 7 17]]
+
+ [[ 3 13]
+  [ 8 18]]
+
+ [[ 4 14]
+  [ 9 19]]
+
+ [[ 5 15]
+  [10 20]]]
+[[[ 1  2  3  4  5]
+  [ 6  7  8  9 10]]
+
+ [[11 12 13 14 15]
+  [16 17 18 19 20]]]
+```
