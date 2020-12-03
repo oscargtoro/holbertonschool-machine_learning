@@ -2,6 +2,8 @@
 '''Performs matrix multiplication on two numpy ndarrays.
 '''
 
+import numpy as np
+
 
 def np_matmul(mat1, mat2):
     '''Performs matrix multiplication on two numpy ndarrays.
@@ -14,4 +16,4 @@ def np_matmul(mat1, mat2):
         numpy ndarray with result
     '''
 
-    return mat1 @ mat2
+    return np.matmul(mat1, mat2)
