@@ -72,3 +72,14 @@ Adds two matrices defined in **_5-main.py_** element-wise, if the shape of the t
 [[5, 6], [7, 8]]
 None
 ```
+
+# 6-howdy_partner.py
+
+Concatenates two arrays defined in **_6-main.py_**. Returns a new list.
+
+```
+(holbertonschool) stiven@stiven-pc:0x00-linear_algebra$ ./6-main.py
+[1, 2, 3, 4, 5, 6, 7, 8]
+[1, 2, 3, 4, 5]
+[6, 7, 8]
+```
