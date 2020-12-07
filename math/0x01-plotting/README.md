@@ -39,3 +39,15 @@ Creates and show the next line graphic:
 Creates and show a histogram of students scores for a project.
 
 ![Plot Graph](imgs/4-frequency.png)
+
+## 5-all_in_one.py
+
+Plots all previous graphs in one figure.
+
+![Plot Graph](imgs/5-all_in_one.png)
+
+## 6-bars.py
+
+Plots and shows a stacked bar graph.
+
+![Plot Graph](imgs/6-bars.png)
