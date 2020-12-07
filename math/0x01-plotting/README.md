@@ -33,3 +33,9 @@ Creates and show the next line graphic:
 Creates and show the next line graphic:
 
 ![Plot Graph](imgs/3-two.png)
+
+## 4-frequency.py
+
+Creates and show a histogram of students scores for a project.
+
+![Plot Graph](imgs/4-frequency.png)
