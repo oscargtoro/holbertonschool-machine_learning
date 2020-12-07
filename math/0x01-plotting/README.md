@@ -9,3 +9,9 @@
 - How to label a plot
 - How to scale an axis
 - How to plot multiple sets of data at the same time
+
+## 0-line.py
+
+Creates and show the next plot graphic:
+
+![Plot Graph](imgs/0-line.png)
