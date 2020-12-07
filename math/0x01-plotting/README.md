@@ -15,3 +15,9 @@
 Creates and show the next plot graphic:
 
 ![Plot Graph](imgs/0-line.png)
+
+## 1-scatter.py
+
+Creates and show the next plot graphic:
+
+![Plot Graph](imgs/1-scatter.png)
