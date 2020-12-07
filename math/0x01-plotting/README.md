@@ -27,3 +27,9 @@ Creates and show the next scatter graphic:
 Creates and show the next line graphic:
 
 ![Plot Graph](imgs/2-change_scale.png)
+
+## 3-two.py
+
+Creates and show the next line graphic:
+
+![Plot Graph](imgs/3-two.png)
