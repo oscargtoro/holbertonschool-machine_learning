@@ -12,12 +12,18 @@
 
 ## 0-line.py
 
-Creates and show the next plot graphic:
+Creates and show the next line graphic:
 
 ![Plot Graph](imgs/0-line.png)
 
 ## 1-scatter.py
 
-Creates and show the next plot graphic:
+Creates and show the next scatter graphic:
 
 ![Plot Graph](imgs/1-scatter.png)
+
+## 2-change_scale.py
+
+Creates and show the next line graphic:
+
+![Plot Graph](imgs/2-change_scale.png)
