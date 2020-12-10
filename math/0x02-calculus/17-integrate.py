@@ -22,11 +22,11 @@ def poly_integral(poly, C=0):
     if isinstance(C, int):
         C = int(C)
     integral = [C]
+    if poly == [0]:
+        return integral
     for idx, x in enumerate(poly):
         if not isinstance(x, (int, float)):
             return None
-        if x == 0:
-            continue
         res = x / (idx + 1)
         if res.is_integer():
             res = int(res)
