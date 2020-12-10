@@ -30,3 +30,22 @@ Calculates the sum of **_i to the power of 2 from i equals 1 to n_**.
 55
 >>>
 ```
+
+## 10-matisse.py
+
+Calculates the derivate of a polynomial:
+
+- Recieves a list of coefficients representing a polynomial.
+  - the index of the list represents the power of **x** that the coefficient belongs to.
+  - Example: if **_f(x) = x^3 + 3x +5_**, the list is equal to **[5, 3, 0, 1]**.
+- Returns 0 when the list is not valid.
+- If the derivative is **0**, returns **[0]**.
+- Returns a new list of coefficients representing the derivative of the polynomial.
+
+```
+>>> derivative = __import__('10-matisse').poly_derivative
+>>> poly = [5, 3, 0, 1]
+>>> print(derivative(poly))
+[3, 0, 3]
+>>>
+```
