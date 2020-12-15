@@ -7,6 +7,8 @@ class Poisson():
     '''Represents a Poisson distribution.
     '''
 
+    e = 2.7182818285
+
     def __init__(self, data=None, lambtha=1.):
         '''Initialize class.
 
@@ -30,6 +32,21 @@ class Poisson():
             else:
                 self.lambtha = float(sum(data) / len(data))
 
+    def factorial(self, k):
+        '''Calculates the factorial of a given number
+
+        k:
+            Integer.
+
+        Returns:
+            Factorial of k.
+        '''
+
+        if k == 0:
+            return 1
+        else:
+            return k * self.factorial(k - 1)
+
     def pmf(self, k):
         '''Calculates the value of the PMF for a given number of “successes”.
 
@@ -42,7 +59,23 @@ class Poisson():
             k = int(k)
         if k <= 0:
             return 0
-        k_fact = 1
-        for x in range(1, k + 1):
-            k_fact = k_fact * x
-        return ((self.lambtha**k) * (2.7182818285 ** -(self.lambtha))) / k_fact
+        return (((self.lambtha**k) * (self.e ** (self.lambtha * -1)))
+                / self.factorial(k))
+
+    def cdf(self, k):
+        '''Calculates the value of the CDF for a given number of “successes”.
+
+        Args:
+            k:
+                Number of successes
+        '''
+
+        if not isinstance(k, int):
+            k = int(k)
+        if k <= 0:
+            return 0
+        cdf = 0
+        for j in range(0, k + 1):
+            cdf += (((self.e ** (self.lambtha * -1)) * (self.lambtha ** j))
+                    / self.factorial(j))
+        return cdf
