@@ -7,6 +7,8 @@ class Exponential():
     '''Represents an exponential distribution
     '''
 
+    e = 2.7182818285
+
     def __init__(self, data=None, lambtha=1.):
         '''Contstructor for class Exponential.
 
@@ -26,3 +28,17 @@ class Exponential():
             if len(data) < 2:
                 raise ValueError('data must contain multiple values')
             self.lambtha = float(1 / (sum(data) / len(data)))
+
+    def pdf(self, x):
+        '''Calculates the value of the PDF for a given number of “successes”.
+
+        Args:
+            x:
+                Number of successes
+        '''
+
+        if not isinstance(x, int):
+            x = int(x)
+        if x < 0:
+            return 0
+        return self.lambtha * (self.e ** ((-1) * self.lambtha * x))
