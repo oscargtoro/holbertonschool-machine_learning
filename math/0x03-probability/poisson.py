@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-'''Represents a Poisson distribution.
+'''Module with Poisson class.
 '''
 
 
 class Poisson():
+    '''Represents a Poisson distribution.
+    '''
 
     def __init__(self, data=None, lambtha=1.):
         '''Initialize class.
