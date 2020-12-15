@@ -37,8 +37,6 @@ class Exponential():
                 Number of successes
         '''
 
-        if not isinstance(x, int):
-            x = int(x)
         if x < 0:
             return 0
         return self.lambtha * (self.e ** ((-1) * self.lambtha * x))
@@ -51,8 +49,6 @@ class Exponential():
                 Number of successes
         '''
 
-        if not isinstance(x, int):
-            x = int(x)
         if x < 0:
             return 0
         return 1 - (self.e ** ((-1 * self.lambtha) * x))
