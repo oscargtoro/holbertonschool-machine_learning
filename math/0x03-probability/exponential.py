@@ -42,3 +42,17 @@ class Exponential():
         if x < 0:
             return 0
         return self.lambtha * (self.e ** ((-1) * self.lambtha * x))
+
+    def cdf(self, x):
+        '''Calculates the value of the CDF for a given number of “successes”.
+
+        Args:
+            x:
+                Number of successes
+        '''
+
+        if not isinstance(x, int):
+            x = int(x)
+        if x < 0:
+            return 0
+        return 1 - (self.e ** ((-1 * self.lambtha) * x))
