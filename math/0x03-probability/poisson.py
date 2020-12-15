@@ -15,7 +15,7 @@ class Poisson():
                 Expected number of occurences in a given time frame.
         '''
 
-        if data is None or not data:
+        if data is None:
             if lambtha <= 0:
                 raise ValueError('lambtha must be a positive value')
             else:
