@@ -7,6 +7,9 @@ class Normal():
     '''Class representing a Normal distribution.
     '''
 
+    e = 2.7182818285
+    pi = 3.1415926536
+
     def __init__(self, data=None, mean=0., stddev=1.):
         '''Normal class constructor.
 
@@ -52,3 +55,18 @@ class Normal():
         '''
 
         return float((self.stddev * z) + self.mean)
+
+    def pdf(self, x):
+        '''Calculates the value of the PDF for a given x-value.
+
+        Args.
+            x: the x-value used to calculate the PDF.
+
+        Returns.
+            the PDf value for x.
+        '''
+
+        dividend = (self.e ** ((-1 * ((x - self.mean) ** 2))
+                    / (2 * (self.stddev ** 2))))
+        divisor = self.stddev * ((2 * self.pi) ** 0.5)
+        return float(dividend / divisor)
