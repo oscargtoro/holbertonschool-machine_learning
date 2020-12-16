@@ -35,6 +35,21 @@ class Normal():
                 variance += (self.mean - point) ** 2
             self.stddev = float((variance / len(data)) ** 0.5)
 
+    def factorial(self, k):
+        '''Calculates the factorial of a given number
+
+        k:
+            Integer.
+
+        Returns:
+            Factorial of k.
+        '''
+
+        if k == 0:
+            return 1
+        else:
+            return k * self.factorial(k - 1)
+
     def z_score(self, x):
         '''Calculates the z-score of a given x-value.
 
@@ -63,10 +78,30 @@ class Normal():
             x: the x-value used to calculate the PDF.
 
         Returns.
-            the PDf value for x.
+            The PDf value for x.
         '''
 
         dividend = (self.e ** ((-1 * ((x - self.mean) ** 2))
                     / (2 * (self.stddev ** 2))))
         divisor = self.stddev * ((2 * self.pi) ** 0.5)
         return float(dividend / divisor)
+
+    def cdf(self, x):
+        '''Calculates the value of the CDF for a given x-value.
+
+        Args.
+            x: the x-value used to calculate the CDF.
+
+        Returns.
+            The CDf value for x.
+        '''
+
+        if x == 0:
+            return float(1 / 2)
+        sum = 0
+        erf_x = (x - self.mean) / (self.stddev * (2 ** 0.5))
+        for n in range(5):
+            sum += (((-1) ** n) * (erf_x ** ((2 * n) + 1))
+                    / (self.factorial(n) * ((2 * n) + 1)))
+        erf = ((2 / (self.pi ** 0.5)) * sum)
+        return (1 / 2) * (1 + erf)
