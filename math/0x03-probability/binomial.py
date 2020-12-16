@@ -68,3 +68,22 @@ class Binomial():
         p = self.p
         nk = float(fac(n) / (fac(k) * fac(n - k)))
         return float(nk * ((p ** k) * ((1 - p) ** (n - k))))
+
+    def cdf(self, k):
+        '''Calculates the value of the CDF for a given number of “successes”
+
+        Args.
+            k: Number of "successes"
+
+        Returns.
+            The CDF value for k
+        '''
+
+        if not isinstance(k, int):
+            k = int(k)
+        if k < 0:
+            return 0
+        cdf = 0
+        for i in range(k + 1):
+            cdf += self.pmf(i)
+        return cdf
