@@ -90,7 +90,7 @@ class Neuron:
             the network is >= 0.5 and 0 otherwise
         '''
 
-        pred = np.where(X >= 0.5, 1, 0)
         self.forward_prop(X)
+        pred = np.where(self.__A >= 0.5, 1, 0)
         cost = self.cost(Y, self.__A)
         return pred, cost
