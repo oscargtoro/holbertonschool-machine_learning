@@ -142,12 +142,12 @@ class NeuralNetwork:
         '''
 
         dz2 = A2 - Y
-        dw2 = (1 / A2.size) * np.matmul(dz2, Y.T)
-        db2 = (1 / A2.size) * np.sum(dz2, axis=1, keepdims=True)
+        dw2 = (1 / A1.shape[1]) * np.matmul(dz2, A1.T)
+        db2 = (1 / A1.shape[1]) * np.sum(dz2, axis=1, keepdims=True)
 
         dz1 = np.matmul(self.__W2.T, dz2) * A1 * (1 - A1)
-        dw1 = (1 / A1.size) * np.matmul(dz1, X.T)
-        db1 = (1 / A1.size) * np.sum(dz1, axis=1, keepdims=True)
+        dw1 = (1 / A1.shape[1]) * np.matmul(dz1, X.T)
+        db1 = (1 / A1.shape[1]) * np.sum(dz1, axis=1, keepdims=True)
 
         self.__W1 = self.__W1 - (alpha * dw1)
         self.__b1 = self.__b1 - (alpha * db1)
