@@ -1,4 +1,4 @@
-#!/usr/vin/env python3
+#!/usr/bin/env python3
 '''Module for function l2_reg_cost(cost, lambtha, weights, L, m).
 '''
 
