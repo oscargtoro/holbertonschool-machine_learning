@@ -27,18 +27,22 @@ def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
 
     m = Y.shape[1]
     dz = cache["A3"] - Y
-    for i in range(L - 1, 0, -1):
-        db = 0
-        dw = 0
-        A_i = cache["A{}".format(i - 1)]
+    for i in range(L, 0, -1):
+
+        # used to shorten code line length
         W_i = weights["W{}".format(i)]
         b_i = weights["b{}".format(i)]
-        dza = np.matmul(np.transpose(weights['W{}'.format(i + 1)]), dz)
-        dzb = 1 - cache['A{}'.format(i)] ** 2
-        dz = dza * dzb
 
-        dw = ((1 / m) * np.matmul(dz, np.transpose(A_i))) + \
-            (lambtha / m) * W_i
-        db = (1 / m) * np.sum(dz, axis=1, keepdims=True) + (lambtha / m) * b_i
-        weights["W{}".format(i + 1)] = W_i - alpha * dw
-        weights["b{}".format(i + 1)] = b_i - alpha * db
+        # frobenius norm
+        f_norm = (lambtha / m) * W_i
+
+        # calculate dw and db, replace values of W and b
+        dw_i = (1 / m) * np.matmul(dz, cache["A{}".format(i - 1)].T)
+        db_i = (1 / m) * np.sum(dz, axis=1, keepdims=True)
+        W_i = W_i - (alpha * (dw_i + f_norm))
+        W_i = b_i - (alpha * db_i)
+
+        # define next dz
+        dz_1 = np.matmul(weights["W{}".format(i)].T, dz)
+        dz_af = 1 - np.square(cache["A{}".format(i - 1)])
+        dz = dz_1 * dz_af
