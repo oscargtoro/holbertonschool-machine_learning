@@ -18,9 +18,9 @@ def l2_reg_cost(cost, lambtha, weights, L, m):
     Returns.
         The cost of the network accounting for L2 regularization.
     '''
+
     # Frobenius Norm
     l2_norm = 0
     for i in range(1, L + 1):
         l2_norm = l2_norm + np.sqrt(np.sum(weights["W{}".format(i)] ** 2))
-    l2_cost = cost + (lambtha / (2 * m)) * l2_norm
-    return l2_cost
+    return (cost + (lambtha / (2 * m)) * l2_norm)
