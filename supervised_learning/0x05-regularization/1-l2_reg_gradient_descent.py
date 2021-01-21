@@ -26,23 +26,18 @@ def l2_reg_gradient_descent(Y, weights, cache, alpha, lambtha, L):
     '''
 
     m = Y.shape[1]
-    dz = cache["A3"] - Y
+    dz = cache["A{}".format(L)] - Y
     for i in range(L, 0, -1):
-
-        # used to shorten code line length
-        W_i = weights["W{}".format(i)]
-        b_i = weights["b{}".format(i)]
-
         # frobenius norm
-        f_norm = (lambtha / m) * W_i
+        f_norm = (lambtha / m) * weights["W{}".format(i)]
 
         # calculate dw and db, replace values of W and b
-        dw_i = (1 / m) * np.matmul(dz, cache["A{}".format(i - 1)].T)
+        dw_i = ((1 / m) * np.matmul(dz, cache["A{}".format(i - 1)].T)) + f_norm
         db_i = (1 / m) * np.sum(dz, axis=1, keepdims=True)
-        W_i = W_i - (alpha * (dw_i + f_norm))
-        W_i = b_i - (alpha * db_i)
+        weights["W{}".format(i)] -= (alpha * dw_i)
+        weights["b{}".format(i)] -= (alpha * db_i)
 
-        # define next dz
+        # define dz for next epoch
         dz_1 = np.matmul(weights["W{}".format(i)].T, dz)
         dz_af = 1 - np.square(cache["A{}".format(i - 1)])
         dz = dz_1 * dz_af
