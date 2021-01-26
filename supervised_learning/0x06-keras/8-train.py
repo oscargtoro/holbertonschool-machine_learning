@@ -77,7 +77,7 @@ def train_model(network,
                                                            verbose=1))
     if save_best:
         callbacks.append(K.callbacks.ModelCheckpoint(filepath=filepath,
-                                                     monitor="val_loss"))
+                                                     monitor='val_loss'))
 
     history = network.fit(x=data,
                           y=labels,
