@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-'''
+'''Module for functions
+save_config(network, filename)
+load_config(filename)
 '''
 
 import tensorflow.keras as K
