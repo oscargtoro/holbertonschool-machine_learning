@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-'''
+'''Module for the function
+one_hot(labels, classes=None)
 '''
 
 import tensorflow.keras as K
