@@ -80,6 +80,7 @@ def train_model(network,
                                                            verbose=1))
     if save_best:
         callbacks.append(K.callbacks.ModelCheckpoint(filepath=filepath,
+                                                     save_best_only=True,
                                                      monitor='val_loss'))
 
     history = network.fit(x=data,
