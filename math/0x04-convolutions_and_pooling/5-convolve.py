@@ -4,7 +4,6 @@ pool(images, kernel_shape, stride, mode='max').
 '''
 
 import numpy as np
-from math import ceil, floor
 
 
 def pool(images, kernel_shape, stride, mode='max'):
