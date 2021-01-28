@@ -65,14 +65,17 @@ def train_model(network,
     Returns:
         The History object generated after training the model.
     '''
+
+    def step_decay(epoch):
+        '''Returns the learning rate decay for each step
+        '''
+        return alpha / (1 + decay_rate * epoch)
+
     callbacks = []
-    optimizer = None
     if early_stopping and validation_data is not None:
         callbacks.append(K.callbacks.EarlyStopping(monitor='val_loss',
                                                    patience=patience))
     if learning_rate_decay and validation_data is not None:
-        def step_decay(epoch):
-            return alpha * ((1 / (1 + decay_rate * epoch)))
         callbacks.append(K.callbacks.LearningRateScheduler(step_decay,
                                                            verbose=1))
     if save_best:
