@@ -50,8 +50,8 @@ def train_model(network,
     '''
     callbacks = []
     if early_stopping and validation_data is not None:
-        callback.append(K.callbacks.EarlyStopping(monitor='val_loss',
-                                                  patience=patience))
+        callbacks.append(K.callbacks.EarlyStopping(monitor='val_loss',
+                                                   patience=patience))
     history = network.fit(x=data,
                           y=labels,
                           batch_size=batch_size,
