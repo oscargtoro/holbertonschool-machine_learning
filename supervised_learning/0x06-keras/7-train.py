@@ -65,7 +65,6 @@ def train_model(network,
         return alpha / (1 + decay_rate * epoch)
 
     callbacks = []
-    optimizer = None
     if early_stopping and validation_data is not None:
         callbacks.append(K.callbacks.EarlyStopping(monitor='val_loss',
                                                    patience=patience))
