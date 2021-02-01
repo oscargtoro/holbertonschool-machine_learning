@@ -29,4 +29,45 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     Returns:
     A numpy.ndarray containing the convolved images.
     '''
-    pass
+
+    print(images.shape)
+    in_d = images.shape[0]
+    in_h = images.shape[1]
+    in_w = images.shape[2]
+    k_h = kernel.shape[0]
+    k_w = kernel.shape[1]
+    s_h = stride[0]
+    s_w = stride[1]
+
+    if padding is 'valid':
+        p_h = 0
+        p_w = 0
+
+    if padding is 'same':
+        p_h = (((in_h - 1) * s_h + k_h - in_h) // 2) + 1
+        p_w = (((in_w - 1) * s_w + k_w - in_w) // 2) + 1
+
+    if isinstance(padding, tuple):
+        p_h = padding[0]
+        p_w = padding[1]
+
+    pad_size = ((0, 0), (p_h, p_h), (p_w, p_w))
+    out_h = ((in_h - k_h + 2 * p_h) // s_h) + 1
+    out_w = ((in_w - k_w + 2 * p_w) // s_w) + 1
+    output = np.zeros((in_d, out_h, out_w))
+
+    images_padded = np.pad(images,
+                           pad_width=pad_size,
+                           mode='constant',
+                           constant_values=0)
+
+    for h in range(out_h):
+        for w in range(out_w):
+            output[:, h, w] = (
+                               kernel *
+                               images_padded[:,
+                                             h * s_h:h * s_h + k_h,
+                                             w * s_w:w * s_w + k_w]
+                               ).sum(axis=(1, 2))
+
+    return output
