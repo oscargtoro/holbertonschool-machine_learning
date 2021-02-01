@@ -29,27 +29,29 @@ def convolve_grayscale_same(images, kernel):
     in_w = images.shape[2]
     k_h = kernel.shape[0]
     k_w = kernel.shape[1]
-    out_h = in_h
-    out_w = in_w
-    out_d = in_d
 
-    # Calculate the number of zeros which are needed to add as padding
-    pad_along_height = max((out_h - 1) + k_h - in_h, 0)
-    pad_along_width = max((out_w - 1) + k_w - in_w, 0)
-    # amount of zero padding on the top
-    pad_top = pad_along_height // 2
-    # amount of zero padding on the bottom
-    pad_bottom = pad_along_height - pad_top
-    # amount of zero padding on the left
-    pad_left = pad_along_width // 2
-    # amount of zero padding on the right
-    pad_right = pad_along_width - pad_left
-    output = np.zeros((out_d, out_h, out_w))
+    # define top, bottom, left and right padding
+    if k_h % 2 == 0:
+        pad_h = k_h
+    else:
+        pad_h = k_h - 1
+    if k_w % 2 == 0:
+        pad_w = k_w
+    else:
+        pad_w = k_w - 1
+    pad_t = pad_h // 2
+    pad_b = pad_h - pad_t
+    pad_l = pad_w // 2
+    pad_r = pad_w - pad_l
 
-    images_padded = np.zeros((in_d,
-                              in_h + pad_along_height,
-                              in_w + pad_along_width))
-    images_padded[:, pad_top:-pad_bottom, pad_left:-pad_right] = images
+    # create a new numpy array with the necessary shape for same output
+    images_padded = np.zeros((in_d, in_h + pad_h, in_w + pad_w))
+    images_padded[:, pad_t:-pad_b, pad_l:-pad_r] = images
+
+    # create the output numpy array
+    out_h = in_h + (2 * (pad_t)) - k_h + 1
+    out_w = in_w + (2 * (pad_l)) - k_w + 1
+    output = np.zeros((in_d, out_h, out_w))
 
     for h in range(out_h):
         for w in range(out_w):
