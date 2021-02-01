@@ -4,6 +4,7 @@ convolve_grayscale(images, kernel, padding='same', stride=(1, 1)).
 '''
 
 import numpy as np
+from math import ceil, floor
 
 
 def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
@@ -30,7 +31,6 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     A numpy.ndarray containing the convolved images.
     '''
 
-    print(images.shape)
     in_d = images.shape[0]
     in_h = images.shape[1]
     in_w = images.shape[2]
