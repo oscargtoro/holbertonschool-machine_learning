@@ -21,4 +21,30 @@ def identity_block(A_prev, filters):
     Returns:
         The activated output of the identity block
     """
-    pass
+
+    init = K.initializers.he_normal()
+    F11, F3, F12 = filters
+
+    Y = K.layers.Conv2D(filters=F11,
+                        kernel_size=1,
+                        strides=1,
+                        padding="same",
+                        kernel_initializer=init)(A_prev)
+    Y = K.layers.BatchNormalization(axis=3)(Y)
+    Y = K.layers.Activation(activation="relu")(Y)
+    Y = K.layers.Conv2D(filters=F3,
+                        kernel_size=3,
+                        strides=1,
+                        padding="same",
+                        kernel_initializer=init)(Y)
+    Y = K.layers.BatchNormalization(axis=3)(Y)
+    Y = K.layers.Activation(activation="relu")(Y)
+    Y = K.layers.Conv2D(filters=F12,
+                        kernel_size=1,
+                        strides=1,
+                        padding="same",
+                        kernel_initializer=init)(Y)
+    Y = K.layers.BatchNormalization(axis=3)(Y)
+    Y = K.layers.add([Y, A_prev])
+    Y = K.layers.Activation(activation="relu")(Y)
+    return Y
