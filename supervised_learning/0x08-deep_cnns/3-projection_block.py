@@ -24,4 +24,35 @@ def projection_block(A_prev, filters, s=2):
     Returns:
         The activated output of the projection block.
     """
-    pass
+
+    F11, F3, F12 = filters
+    init = K.initializers.he_normal()
+
+    Y = K.layers.Conv2D(filters=F11,
+                        kernel_size=1,
+                        strides=s,
+                        padding="same",
+                        kernel_initializer=init)(A_prev)
+    Y = K.layers.BatchNormalization()(Y)
+    Y = K.layers.Activation(activation="relu")(Y)
+    Y = K.layers.Conv2D(filters=F3,
+                        kernel_size=3,
+                        strides=1,
+                        padding="same",
+                        kernel_initializer=init)(Y)
+    Y = K.layers.BatchNormalization()(Y)
+    Y = K.layers.Activation(activation="relu")(Y)
+    Y = K.layers.Conv2D(filters=F12,
+                        kernel_size=1,
+                        strides=1,
+                        padding="same",
+                        kernel_initializer=init)(Y)
+    Y = K.layers.BatchNormalization()(Y)
+    shortcut = K.layers.Conv2D(filters=F12,
+                               kernel_size=1,
+                               strides=s,
+                               padding="same",
+                               kernel_initializer=init)(A_prev)
+    shortcut = K.layers.BatchNormalization()(shortcut)
+    output = K.layers.Add()([Y, shortcut])
+    return K.layers.Activation(activation="relu")(output)
