@@ -23,7 +23,6 @@ def dense_block(X, nb_filters, growth_rate, layers):
     """
 
     init = K.initializers.he_normal()
-    output = [X]
     # don't understand why, just that the output expected is 4 times the
     # growth rate
     c11f = growth_rate * 4
@@ -31,21 +30,20 @@ def dense_block(X, nb_filters, growth_rate, layers):
     # for each layer in layers we use bottleneck layers (1x1 layers) before
     # the 3x3 conv
     for layer in range(layers):
-        X_prev = output[layer]
-        H = K.layers.BatchNormalization()(X_prev)
-        H = K.layers.Activation(activation="relu")(H)
-        # bottleneck layer
-        X = K.layers.Conv2D(filters=c11f,
-                            kernel_size=1,
-                            padding="same",
-                            kernel_initializer=init)(H)
         H = K.layers.BatchNormalization()(X)
         H = K.layers.Activation(activation="relu")(H)
-        X = K.layers.Conv2D(filters=growth_rate,
-                            kernel_size=3,
-                            padding="same",
-                            kernel_initializer=init)(H)
+        # bottleneck layer
+        Xl = K.layers.Conv2D(filters=c11f,
+                             kernel_size=1,
+                             padding="same",
+                             kernel_initializer=init)(H)
+        H = K.layers.BatchNormalization()(Xl)
+        H = K.layers.Activation(activation="relu")(H)
+        Xl = K.layers.Conv2D(filters=growth_rate,
+                             kernel_size=3,
+                             padding="same",
+                             kernel_initializer=init)(H)
         nb_filters += growth_rate
-        output.append(K.layers.Concatenate()([output[layer], X]))
+        X = K.layers.Concatenate()([X, Xl])
 
-    return output, nb_filters
+    return X, nb_filters
