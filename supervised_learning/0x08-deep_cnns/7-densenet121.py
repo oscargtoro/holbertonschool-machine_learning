@@ -20,4 +20,28 @@ def densenet121(growth_rate=32, compression=1.0):
     Returns:
         The keras model.
     """
-    pass
+
+    init = K.initializers.he_normal()
+    nb_filters = 0
+    X = K.layers.Input((224, 224, 3))
+
+    Y = K.layers.BatchNormalization()(X)
+    Y = K.layers.Activation(activation="relu")(Y)
+    Y = K.layers.Conv2D(filters=64,
+                        kernel_size=7,
+                        strides=2,
+                        padding="same",
+                        kernel_initializer=init)(Y)
+    Y = K.layers.MaxPool2D(pool_size=2, padding="same", strides=2)(Y)
+    Y, nb_filters = dense_block(Y, Y.shape[3], growth_rate, 6)
+    Y, nb_filters = transition_layer(Y, int(nb_filters), compression)
+    Y, nb_filters = dense_block(Y, int(nb_filters), growth_rate, 12)
+    Y, nb_filters = transition_layer(Y, int(nb_filters), compression)
+    Y, nb_filters = dense_block(Y, Y.shape[3], growth_rate, 24)
+    Y, nb_filters = transition_layer(Y, int(nb_filters), compression)
+    Y, nb_filters = dense_block(Y, Y.shape[3], growth_rate, 16)
+    Y = K.layers.AveragePooling2D(pool_size=7, padding="same")(Y)
+    Y = K.layers.Dense(units=1000,
+                       activation="softmax",
+                       kernel_initializer=init)(Y)
+    return K.models.Model(X, Y)
