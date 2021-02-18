@@ -60,8 +60,6 @@ if __name__ == "__main__":
                   loss="categorical_crossentropy",
                   metrics=["accuracy"])
 
-    model.summary()
-
     model.fit(x_testp, y_testp, batch_size=128, epochs=2)
 
     vgg16_model.trainable = True
