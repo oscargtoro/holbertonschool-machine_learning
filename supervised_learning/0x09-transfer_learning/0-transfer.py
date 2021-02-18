@@ -11,9 +11,10 @@ def preprocess_data(X, Y):
         X: A numpy.ndarray of shape (m, 32, 32, 3) containing the CIFAR 10
         data, where m is the number of data points
         Y: A numpy.ndarray of shape (m,) containing the CIFAR 10 labels for X
-Returns:
-    X_p and Y_p where X_p is a numpy.ndarray containing the preprocessed X and
-    Y_p is a numpy.ndarray containing the preprocessed Y
+
+    Returns:
+        X_p and Y_p where X_p is a numpy.ndarray containing the preprocessed X
+        and Y_p is a numpy.ndarray containing the preprocessed Y
     """
 
     X_p = K.applications.vgg16.preprocess_input(X)
