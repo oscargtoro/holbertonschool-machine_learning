@@ -37,24 +37,24 @@ class Yolo:
         boxes = []
         box_confidences = []
         box_class_probs = []
-        # for output in outputs:
-        #     (grid_h, grid_w, anchors, attributes) = output.shape
-        #     confidence = np.zeros((grid_h, grid_w, anchors, 1))
-        #     box = np.zeros((grid_h, grid_w, anchors, 4))
-        #     classes = np.zeros((grid_h, grid_w, anchors, attributes - 5))
-        #     for h in range(grid_h):
-        #         for w in range(grid_w):
-        #             x1 = y1 = x2 = y2 = 0
-        #             confidences = []
-        #             for a in range(anchors):
-        #                 x1 = output[h, w, a, 0] - (output[h, w, a, 2] / 2)
-        #                 y1 = output[h, w, a, 1] + (output[h, w, a, 3] / 2)
-        #                 x2 = output[h, w, a, 0] + (output[h, w, a, 2] / 2)
-        #                 y2 = output[h, w, a, 1] - (output[h, w, a, 3] / 2)
-        #                 box[h, w, a, :] = [x1, y1, x2, y2]
-        #                 confidence[h, w, a, :] = output[h, w, a, 4]
-        #                 classes[h, w, a, :] = output[h, w, a, 5:]
-        #     boxes.append(box)
-        #     box_confidences.append(confidence)
-        #     box_class_probs.append(classes)
+        for output in outputs:
+            (grid_h, grid_w, anchors, _) = output.shape
+            confidence = output[:, :, :, 0:1]
+            box = output[:, :, :, 0:4]
+            classes = output[:, :, :, 5:]
+            for h in range(grid_h):
+                for w in range(grid_w):
+                    x1 = y1 = x2 = y2 = 0
+                    confidences = []
+                    for a in range(anchors):
+                        x1 = output[h, w, a, 0] - (grid_w / 2)
+                        y1 = output[h, w, a, 1] + (grid_h / 2)
+                        x2 = output[h, w, a, 0] + (grid_w / 2)
+                        y2 = output[h, w, a, 1] - (grid_h / 2)
+                        box[h, w, a, :] = [x1, y1, x2, y2]
+                        confidence[h, w, a, :] = output[h, w, a, 4]
+                        classes[h, w, a, :] = output[h, w, a, 5:]
+            boxes.append(box)
+            box_confidences.append(confidence)
+            box_class_probs.append(classes)
         return boxes, box_confidences, box_class_probs
