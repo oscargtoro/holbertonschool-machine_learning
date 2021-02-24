@@ -3,6 +3,7 @@
 """
 
 import tensorflow.keras as K
+import numpy as np
 
 
 class Yolo:
@@ -57,4 +58,4 @@ class Yolo:
             boxes.append(box)
             box_confidences.append(confidence)
             box_class_probs.append(classes)
-        return boxes, box_confidences, box_class_probs
+        return (boxes, box_confidences, box_class_probs)
