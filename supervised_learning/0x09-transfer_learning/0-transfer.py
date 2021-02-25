@@ -18,7 +18,7 @@ def preprocess_data(X, Y):
     """
 
     X_p = K.applications.vgg16.preprocess_input(X)
-    Y_p = K.utils.to_categorical(Y)
+    Y_p = K.utils.to_categorical(Y, 10)
     return X_p, Y_p
 
 
@@ -33,6 +33,7 @@ if __name__ == "__main__":
     Input = K.layers.Input
     vgg16 = K.applications.vgg16
     cifar10 = K.datasets.cifar10
+    callbacks = []
 
     (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
@@ -40,28 +41,30 @@ if __name__ == "__main__":
 
     x_testp, y_testp = preprocess_data(x_test, y_test)
 
-    vgg16_model = vgg16.VGG16(include_top=False, weights="imagenet")
-
+    vgg16_model = vgg16.VGG16(include_top=False,
+                              weights="imagenet",
+                              input_shape=(224, 224, 3))
     vgg16_model.trainable = False
-
-    inputs = Input(shape=(32, 32, 3))
-
-    x = Lambda(lambda x: K.backend.resize_images(x, 7, 7, "channels_last"),
-               trainable=False)(inputs)
-
+    x = Input(shape=(32, 32, 3))
+    x = Lambda(lambda x: K.backend.resize_images(x, 7, 7, "channels_last"))(x)
     x = vgg16_model(x, training=False)
 
-    x = Flatten(trainable=False)(x)
-
+    x = K.layers.GlobalAveragePooling2D()(x)
+    x = Dense(68, activation="relu")(x)
+    x = Dense(68, activation="relu")(x)
     x = Dense(10, activation="softmax")(x)
 
     model = Model(inputs, x)
+    model.summary()
 
     model.compile(optimizer=Adam(),
                   loss="categorical_crossentropy",
                   metrics=["accuracy"])
 
-    model.fit(x_testp, y_testp, batch_size=128, epochs=2)
+    model.fit(x_trainp, y_trainp,
+              batch_size=300,
+              epochs=8,
+              validation_data=(x_testp, y_testp))
 
     vgg16_model.trainable = True
 
@@ -69,6 +72,9 @@ if __name__ == "__main__":
                   loss="categorical_crossentropy",
                   metrics=["accuracy"])
 
-    model.fit(x_testp, y_testp, batch_size=128, epochs=1)
+    model.fit(x_trainp, y_trainp,
+              batch_size=128,
+              epochs=6,
+              validation_data=(x_testp, y_testp))
 
     model.save("cifar10.h5")
