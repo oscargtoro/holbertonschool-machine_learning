@@ -192,8 +192,6 @@ class Yolo:
             A tuple of (images, image_paths)
         """
 
-        load_image = K.preprocessing.image.load_img
-        img_to_array = K.preprocessing.image.img_to_array
         images = []
         image_paths = []
 
