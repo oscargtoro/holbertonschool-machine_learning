@@ -4,6 +4,7 @@
 
 import tensorflow.keras as K
 import os
+import cv2
 
 
 class Yolo:
@@ -42,8 +43,8 @@ class Yolo:
 
         for img in os.listdir(folder_path):
             path = folder_path + "/" + img
-            image = img_to_array(load_image(path)) / 255
-            image = image[..., ::-1]
-            images.append(image)
-            image_paths.append(path)
+            image = cv2.imread(path)
+            if image is not None:
+                images.append(image)
+                image_paths.append(path)
         return images, image_paths
