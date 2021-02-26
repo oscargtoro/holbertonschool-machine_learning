@@ -212,6 +212,8 @@ class Yolo:
             A tuple of (pimages, image_shapes)
         """
 
+        if images is None or len(images) == 0:
+            return [], []
         pimages = np.empty((len(images), 416, 416, 3))
         image_shapes = np.empty((len(images), 2), dtype=np.int64)
 
