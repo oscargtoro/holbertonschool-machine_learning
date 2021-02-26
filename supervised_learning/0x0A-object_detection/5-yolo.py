@@ -212,8 +212,9 @@ class Yolo:
             A tuple of (pimages, image_shapes)
         """
 
-        pimages = np.zeros((len(images), 416, 416, 3))
-        image_shapes = np.zeros((len(images), 2), dtype=np.int64)
+        pimages = np.empty((len(images), 416, 416, 3))
+        image_shapes = np.empty((len(images), 2), dtype=np.int64)
+
         for idx, image in enumerate(images):
             image_height, image_width, _ = image.shape
             img = cv2.resize(image,
