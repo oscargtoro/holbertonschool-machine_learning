@@ -2,8 +2,10 @@
 """Module for the class YOLO
 """
 
-import tensorflow.keras as K
+import cv2
 import numpy as np
+import os
+import tensorflow.keras as K
 
 
 class Yolo:
