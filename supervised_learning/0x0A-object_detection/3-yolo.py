@@ -124,6 +124,18 @@ class Yolo:
 
         return filtered_boxes, box_classes, box_scores
 
+    @staticmethod
+    def calc_iou(box1, box2):
+        x1, y1, w1, h1 = box1
+        x2, y2, w2, h2 = box2
+        w_intersection = min(x1 + w1, x2 + w2) - max(x1, x2)
+        h_intersection = min(y1 + h1, y2 + h2) - max(y1, y2)
+        if w_intersection <= 0 or h_intersection <= 0:
+            return 0
+        i = w_intersection * h_intersection
+        u = w1 * h1 + w2 * h2 - i
+        return i / u
+
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
         """Uses non-max suppresion to remove boxes with score less than nms_t
         and sorts them by class then by score
@@ -144,16 +156,24 @@ class Yolo:
             return []
 
         i_sorted = np.lexsort((-box_scores, box_classes))
-        box_predictions = []
-        predicted_box_classes = []
-        predicted_box_scores = []
+        picks = []
+        sorted_len = len(i_sorted)
 
-        for idx, score in enumerate(box_scores[i_sorted]):
-            if score >= self.nms_t:
-                predicted_box_scores.append(score.tolist())
-                box_predictions.append(filtered_boxes[i_sorted][idx])
-                predicted_box_classes.append(box_classes[i_sorted][idx])
-        predicted_box_scores = np.array(predicted_box_scores)
-        box_predictions = np.array(box_predictions)
-        predicted_box_classes = np.array(predicted_box_classes)
-        return box_predictions, predicted_box_classes, predicted_box_scores
+        for idx in range(sorted_len - 1):
+            i = idx + 1
+            suppress = []
+            if i < len(i_sorted):
+                while (box_classes[i_sorted[idx]] ==
+                       box_classes[i_sorted[i]]):
+                    iou = self.calc_iou(filtered_boxes[i_sorted[idx]],
+                                        filtered_boxes[i_sorted[i]])
+                    if iou > self.nms_t:
+                        suppress.append(i)
+                    i += 1
+                    if i >= len(i_sorted):
+                        break
+                idx = i
+            i_sorted = np.delete(i_sorted, suppress)
+        return (filtered_boxes[i_sorted],
+                box_classes[i_sorted],
+                box_scores[i_sorted])
