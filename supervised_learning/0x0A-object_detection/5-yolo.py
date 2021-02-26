@@ -220,7 +220,7 @@ class Yolo:
         for image in images:
             image_height, image_width, _ = image.shape
             img = cv2.resize(image,
-                             dsize=(width, height),
+                             dsize=(height, width),
                              interpolation=cv2.INTER_CUBIC)
             img = cv2.normalize(img,
                                 None,
@@ -229,5 +229,5 @@ class Yolo:
                                 norm_type=cv2.NORM_MINMAX,
                                 dtype=cv2.CV_32F)
             pimages.append(img)
-            image_shapes.append((image_width, image_height))
+            image_shapes.append((image_height, image_width))
         return np.array(pimages), np.array(image_shapes)
