@@ -214,6 +214,7 @@ class Yolo:
 
         width = self.model.input_shape[1]
         height = self.model.input_shape[2]
+
         pimages = []
         image_shapes = []
 
@@ -222,12 +223,7 @@ class Yolo:
             img = cv2.resize(image,
                              dsize=(height, width),
                              interpolation=cv2.INTER_CUBIC)
-            img = cv2.normalize(img,
-                                None,
-                                0,
-                                1,
-                                norm_type=cv2.NORM_MINMAX,
-                                dtype=cv2.CV_32F)
+            img = img / 255
             pimages.append(img)
             image_shapes.append((image_height, image_width))
         return np.array(pimages), np.array(image_shapes)
