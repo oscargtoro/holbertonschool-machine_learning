@@ -120,6 +120,6 @@ class Yolo:
             box_classes += classes[mask].tolist()
         filtered_boxes = np.array(filtered_boxes)
         box_classes = np.array(box_classes)
-        box_scores = np.array(box_scores)
+        box_scores = np.array(box_scores, dtype=np.float32)
 
         return filtered_boxes, box_classes, box_scores
