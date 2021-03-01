@@ -42,20 +42,20 @@ def train(X_train,
     classes = Y_train.shape[1]
 
     x, y = create_placeholders(nx, classes)
-    # tf.add_to_collection('x', x)
-    # tf.add_to_collection('y', y)
+    tf.add_to_collection('x', x)
+    tf.add_to_collection('y', y)
 
     y_pred = forward_prop(x, layer_sizes, activations)
-    # tf.add_to_collection('y_pred', y_pred)
+    tf.add_to_collection('y_pred', y_pred)
 
     acc = calculate_accuracy(y, y_pred)
-    # tf.add_to_collection('acc', acc)
+    tf.add_to_collection('accuracy', acc)
 
     loss = calculate_loss(y, y_pred)
-    # tf.add_to_collection('loss', loss)
+    tf.add_to_collection('loss', loss)
 
     op = create_train_op(loss, alpha)
-    # tf.add_to_collection('op', op)
+    tf.add_to_collection('op', op)
 
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
