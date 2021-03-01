@@ -221,7 +221,7 @@ class Yolo:
         for image in images:
             image_height, image_width, _ = image.shape
             img = cv2.resize(image,
-                             dsize=(height, width),
+                             dsize=(width, height),
                              interpolation=cv2.INTER_CUBIC)
             img = img / 255
             pimages.append(img)
