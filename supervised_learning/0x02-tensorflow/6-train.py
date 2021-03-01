@@ -66,7 +66,7 @@ def train(X_train,
         for i in range(iterations + 1):
             t_acc, t_loss = sess.run([acc, loss], {x: X_train, y: Y_train})
             v_acc, v_loss = sess.run([acc, loss], {x: X_valid, y: Y_valid})
-            if i % 100 == 0:
+            if i % 100 == 0 or i == iterations:
                 print("After {} iterations:".format(i))
                 print("\tTraining Cost: {}".format(t_loss))
                 print("\tTraining Accuracy: {}".format(t_acc))
