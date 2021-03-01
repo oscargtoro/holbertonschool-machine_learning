@@ -68,10 +68,10 @@ def train(X_train,
             v_acc, v_loss = sess.run([acc, loss], {x: X_valid, y: Y_valid})
             if i % 100 == 0:
                 print("After {} iterations:".format(i))
-                print("Training Cost: {}".format(t_loss))
-                print("Training Accuracy: {}".format(t_acc))
-                print("Validation Cost: {}".format(v_loss))
-                print("Validation Accuracy: {}".format(v_acc))
+                print("\tTraining Cost: {}".format(t_loss))
+                print("\tTraining Accuracy: {}".format(t_acc))
+                print("\tValidation Cost: {}".format(v_loss))
+                print("\tValidation Accuracy: {}".format(v_acc))
             if i < iterations:
                 sess.run(op, {x: X_train, y: Y_train})
 
