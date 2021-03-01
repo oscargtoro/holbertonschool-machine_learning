@@ -212,26 +212,21 @@ class Yolo:
             A tuple of (pimages, image_shapes)
         """
 
-        if images is None or len(images) == 0:
-            return [], []
-        pimages = np.empty((len(images), 416, 416, 3))
-        image_shapes = np.empty((len(images), 2), dtype=np.int64)
+        width = self.model.input_shape[1]
+        height = self.model.input_shape[2]
 
-        for idx, image in enumerate(images):
+        pimages = []
+        image_shapes = []
+
+        for image in images:
             image_height, image_width, _ = image.shape
             img = cv2.resize(image,
-                             dsize=(416, 416),
+                             dsize=(width, height),
                              interpolation=cv2.INTER_CUBIC)
-            img = cv2.normalize(img,
-                                None,
-                                0,
-                                1,
-                                norm_type=cv2.NORM_MINMAX,
-                                dtype=cv2.CV_32F)
-            pimages[idx] = img
-            image_shapes[idx][0] = image_height
-            image_shapes[idx][1] = image_width
-        return pimages, image_shapes
+            img = img / 255
+            pimages.append(img)
+            image_shapes.append((image_height, image_width))
+        return np.array(pimages), np.array(image_shapes)
 
     def show_boxes(self, image, boxes, box_classes, box_scores, file_name):
         """Displays the image with all boundary boxes, class names,
