@@ -2,8 +2,6 @@
 """Module for the function update_variables_RMSProp
 """
 
-import tensorflow as tf
-
 
 def update_variables_RMSProp(alpha, beta2, epsilon, var, grad, s):
     """Updates a variable using the RMSProp optimization algorithm:
