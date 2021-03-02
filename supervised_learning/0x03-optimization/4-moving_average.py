@@ -2,9 +2,6 @@
 """Module for the function moving_average
 """
 
-import numpy as np
-shuffle_data = __import__('2-shuffle_data').shuffle_data
-
 
 def moving_average(data, beta):
     """Calculates the weighted moving average of a data set
