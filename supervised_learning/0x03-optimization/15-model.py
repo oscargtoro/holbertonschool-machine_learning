@@ -224,8 +224,10 @@ def train_mini_batch(sess,
     """
 
     saver = tf.train.Saver()
-    steps = (X_train.shape[0] // batch_size + 1)
+    steps = (X_train.shape[0] // batch_size) + 1
     remainder = X_train.shape[0] % batch_size
+    if remainder != 0:
+        steps += 1
 
     x = tf.get_collection('x')[0]
     y = tf.get_collection('y')[0]
@@ -251,7 +253,7 @@ def train_mini_batch(sess,
             start = 0
             end = start + batch_size
 
-            for step in range(1, steps + 1):
+            for step in range(1, steps):
 
                 sess.run(train_op, {x: X_t[start: end],
                                     y: Y_t[start: end]})
