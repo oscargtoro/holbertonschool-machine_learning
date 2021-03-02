@@ -6,7 +6,8 @@ import tensorflow as tf
 
 
 def create_RMSProp_op(loss, alpha, beta2, epsilon):
-    """Creates the training operation for a neural network in tensorflow using the RMSProp optimization algorithm:
+    """Creates the training operation for a neural network in tensorflow using
+    the RMSProp optimization algorithm:
 
     Args:
         loss: is the loss of the network
