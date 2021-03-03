@@ -1,4 +1,6 @@
-*pycache*
+*
+!*/
+!*.py
 *main*
-*.npz
+!*.md
 !.gitignore
