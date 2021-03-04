@@ -1,6 +1,6 @@
-#!/usr/vin/env python3
-'''Module for the function
-pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max')
+#!/usr/bin/env python3
+'''Module for the function pool_backward
+Performs back propagation over a pooling layer of a neural network
 '''
 
 import numpy as np
@@ -38,7 +38,7 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
     (k_h, k_w) = kernel_shape
     (s_h, s_w) = stride
 
-    dA_prev = np.zeros_like(A_prev)
+    dA_prev = np.zeros(A_prev.shape)
 
     for m in range(dA_m):
         for h in range(dA_h):
@@ -49,18 +49,15 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
                                           h * s_h:h * s_h + k_h,
                                           w * s_w:w * s_w + k_w,
                                           c]
-                        mask = np.where(Ap_slice == np.max(Ap_slice), 1, 0)
+                        mask = Ap_slice == np.max(Ap_slice)
                         dA_prev[m,
                                 h * s_h:h * s_h + k_h,
                                 w * s_w:w * s_w + k_w,
                                 c] += dA[m, h, w, c] * mask
                     if mode is 'avg':
-                        avg = dA[m, h, w, c] / (k_w * k_h)
-                        print(avg, dA[m, h, w, c]/(dA_h * dA_w))
-                        break
                         dA_prev[m,
                                 h * s_h:h * s_h + k_h,
                                 w * s_w:w * s_w + k_w,
-                                c] += np.ones(kernel_shape) * avg
+                                c] += dA[m, h, w, c] / (kh * kw)
 
     return dA_prev
