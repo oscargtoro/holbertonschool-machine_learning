@@ -39,16 +39,14 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     (in_d, in_h, in_w, in_c) = A_prev.shape
     (W_h, W_w, W_pc, W_nc) = W.shape
     (s_h, s_w) = stride
+    p_h = (((in_h - 1) * s_h + W_h - in_h) // 2) + 1
+    p_w = (((in_w - 1) * s_w + W_w - in_w) // 2) + 1
 
     if padding is 'valid':
         p_h, p_w = 0, 0
 
-    if padding is 'same':
-        p_h = (((in_h - 1) * s_h + W_h - in_h) // 2) + 1
-        p_w = (((in_w - 1) * s_w + W_w - in_w) // 2) + 1
-
-    out_h = ((in_h + 2 * (p_h) - W_h) // s_h) + 1
-    out_w = ((in_w + 2 * (p_w) - W_w) // s_w) + 1
+    out_h = ((in_h - W_h + 2 * p_h) // s_h) + 1
+    out_w = ((in_w - W_w + 2 * p_w) // s_w) + 1
 
     pad_size = ((0, 0), (p_h, p_h), (p_w, p_w), (0, 0))
     output = np.zeros((in_d, out_h, out_w, W_nc))
