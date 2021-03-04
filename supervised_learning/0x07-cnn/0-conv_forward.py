@@ -57,8 +57,8 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
                          mode='constant',
                          constant_values=0)
 
-    for h in range(out_w):
-        for w in range(out_h):
+    for h in range(out_h):
+        for w in range(out_w):
             for n in range(W_nc):
                 output[:, h, w, n] = (
                                       W[:, :, :, n] *
