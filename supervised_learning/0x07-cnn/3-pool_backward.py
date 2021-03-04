@@ -58,6 +58,6 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
                         dA_prev[m,
                                 h * s_h:h * s_h + k_h,
                                 w * s_w:w * s_w + k_w,
-                                c] += dA[m, h, w, c] / (kh * kw)
+                                c] += dA[m, h, w, c] / (k_h * k_w)
 
     return dA_prev
