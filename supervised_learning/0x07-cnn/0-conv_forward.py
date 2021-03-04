@@ -42,7 +42,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     p_h = ((in_h * (s_h - 1)) - s_h + in_h) // 2
     p_w = ((in_w * (s_w - 1)) - s_w + in_w) // 2
 
-    if padding is 'valid':
+    if padding == 'valid':
         p_h = 0
         p_w = 0
 
@@ -57,8 +57,8 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
                          mode='constant',
                          constant_values=0)
 
-    for w in range(out_w):
-        for h in range(out_h):
+    for h in range(out_w):
+        for w in range(out_h):
             for n in range(W_nc):
                 output[:, h, w, n] = (
                                       W[:, :, :, n] *
