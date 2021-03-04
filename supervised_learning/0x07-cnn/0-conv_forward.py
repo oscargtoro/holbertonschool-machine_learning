@@ -36,11 +36,11 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     The output of the convolutional layer.
     '''
 
-    (in_d, in_h, in_w, in_c) = A_prev.shape
-    (W_h, W_w, W_pc, W_nc) = W.shape
-    (s_h, s_w) = stride
-    p_h = ((in_h * (s_h - 1)) - s_h + in_h) // 2
-    p_w = ((in_w * (s_w - 1)) - s_w + in_w) // 2
+    in_d, in_h, in_w, in_c = A_prev.shape
+    W_h, W_w, _, W_nc = W.shape
+    s_h, s_w = stride
+    p_h = ((in_h * (s_h - 1)) - s_h + W_h) // 2
+    p_w = ((in_w * (s_w - 1)) - s_w + W_w) // 2
 
     if padding == 'valid':
         p_h = 0
@@ -68,5 +68,4 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
                                                   :]
                                       ).sum(axis=(1, 2, 3))
 
-    output = activation(output + b)
-    return output
+    return activation(output + b)
