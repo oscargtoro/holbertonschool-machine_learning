@@ -43,7 +43,8 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     p_w = ((in_w * (s_w - 1)) - s_w + in_w) // 2
 
     if padding is 'valid':
-        p_h, p_w = 0, 0
+        p_h = 0
+        p_w = 0
 
     out_h = ((in_h - W_h + 2 * p_h) // s_h) + 1
     out_w = ((in_w - W_w + 2 * p_w) // s_w) + 1
@@ -56,10 +57,11 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
                          mode='constant',
                          constant_values=0)
 
-    for h in range(out_h):
-        for w in range(out_w):
+    for w in range(out_w):
+        for h in range(out_h):
             for n in range(W_nc):
-                output[:, h, w, n] = (W[:, :, :, n] *
+                output[:, h, w, n] = (
+                                      W[:, :, :, n] *
                                       imgs_padded[:,
                                                   h * s_h:h * s_h + W_h,
                                                   w * s_w:w * s_w + W_w,
