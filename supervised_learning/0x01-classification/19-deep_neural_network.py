@@ -89,4 +89,4 @@ class DeepNeuralNetwork:
         m = Y.shape[1]
         nm = np.multiply
         cs = -(np.sum(nm(Y, np.log(A)) + nm((1 - Y), np.log(1.0000001 - A))))
-        return c_sum / m
+        return cs / m
