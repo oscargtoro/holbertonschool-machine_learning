@@ -21,25 +21,27 @@ class DeepNeuralNetwork:
             activation: represents the type of activation function used in the
             hidden layers
         """
-
-        if type(nx) is not int:
+        if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be a positive integer")
-        if type(layers) is not list or len(layers) < 1:
+        if not isinstance(layers, list) or len(layers) == 0:
             raise TypeError("layers must be a list of positive integers")
-
-        self.__activation = activation
+        if activation not in ["sig", "tanh"]:
+            raise ValueError("activation must be 'sig' or 'tanh'")
         self.nx = nx
+        self.layers = layers
         self.__L = len(layers)
+        self.__activation = activation
         self.__cache = {}
         self.__weights = {}
 
         for i in range(self.L):
-            if type(layers[i]) is not int or layers[i] < 1:
+            if not isinstance(layers[i], int) or layers[i] < 1:
                 raise TypeError("layers must be a list of positive integers")
-            W_key = "W{}".format(i+1)
-            b_key = "b{}".format(i+1)
+            W_key = "W{}".format(i + 1)
+            b_key = "b{}".format(i + 1)
+
             self.weights[b_key] = np.zeros((layers[i], 1))
 
             if i == 0:
@@ -65,6 +67,11 @@ class DeepNeuralNetwork:
         """weights getter"""
         return self.__weights
 
+    @property
+    def activation(self):
+        """Retrieves activation function"""
+        return self.__activation
+
     def forward_prop(self, X):
         """Calculates the forward propagation of the neural network
 
@@ -84,8 +91,7 @@ class DeepNeuralNetwork:
 
             Z_matmul = np.matmul(self.__weights[W_key], self.__cache[k_pre])
             Z = Z_matmul + self.__weights[b_key]
-            if i == self.__L - 1:
-
+            if i != self.__L - 1:
                 if self.__activation == 'sig':
                     self.__cache[k_for] = 1 / (1 + np.exp(-Z))
                 else:
@@ -93,6 +99,7 @@ class DeepNeuralNetwork:
             else:
                 Ze = np.exp(Z)
                 self.__cache[k_for] = (Ze / np.sum(Ze, axis=0, keepdims=True))
+
         return self.__cache[k_for], self.__cache
 
     def cost(self, Y, A):
@@ -117,6 +124,7 @@ class DeepNeuralNetwork:
             X: numpy.ndarray with shape (nx, m) that contains the input data
             Y: a one-hot numpy.ndarray of shape (classes, m) that contains
             the correct labels for the input data
+
         Returns.
             The neuron’s prediction and the cost of the network
         """
@@ -138,28 +146,28 @@ class DeepNeuralNetwork:
             alpha: the learning rate
         """
 
-        weights = self.__weights.copy()
         m = Y.shape[1]
+        weights = self.__weights.copy()
 
-        for i in reversed(range(self.__L)):
-            wu_key = "W{}".format(i + 1)
-            bu_key = "b{}".format(i + 1)
+        for i in range(self.__L - 1, 0, -1):
+            A_key = "A{}".format(i + 1)
+            W_key = "W{}".format(i + 1)
+            b_key = "b{}".format(i + 1)
             if i == self.__L - 1:
-                dZ = cache["A{}".format(i + 1)] - Y
+                dZ = cache[A_key] - Y
             else:
-                dZa = np.matmul(weights["W{}".format(i + 2)].T, dZ)
-                if self.__activation == "sig":
-                    dZb = (cache["A{}".format(i + 1)]
-                           * (1 - cache["A{}".format(i + 1)]))
+                dZ1 = np.matmul(weights['W{}'.format(i + 2)].T, dZ)
+                if self.__activation == 'sig':
+                    dZ2 = (cache[A_key] * (1 - cache[A_key]))
                 else:
-                    dZb = 1 - cache["A{}".format(i + 1)] ** 2
-                dZ = dZa * dZb
+                    dZ2 = 1 - cache[A_key] ** 2
+                dZ = dZ1 * dZ2
 
-            dW = (np.matmul(dZ, cache["A{}".format(i)].T)) / m
+            dW = (np.matmul(dZ, cache['A{}'.format(i)].T)) / m
             db = np.sum(dZ, axis=1, keepdims=True) / m
 
-            self.__weights[wu_key] = weights[wu_key] - (alpha * dW)
-            self.__weights[bu_key] = weights[bu_key] - (alpha * db)
+            self.__weights[W_key] = self.__weights[W_key] - alpha * dW
+            self.__weights[b_key] = self.__weights[b_key] - alpha * db
 
     def train(self,
               X,
@@ -203,14 +211,14 @@ class DeepNeuralNetwork:
                 raise ValueError("step must be positive and <= iterations")
         step_list = []
         cost_list = []
-        for i in range(iterations + 1):
+        for i in range(iterations):
             self.forward_prop(X)
             self.gradient_descent(Y, self.__cache, alpha)
 
             if i % step == 0 or i == iterations:
                 cost = self.cost(Y, self.__cache['A{}'.format(self.L)])
                 cost_list.append(cost)
-                steps_list.append(i)
+                step_list.append(i)
                 if verbose is True:
                     print("Cost after {} iterations: {}".format(i, cost))
 
@@ -223,14 +231,13 @@ class DeepNeuralNetwork:
 
         return self.evaluate(X, Y)
 
-        return self.evaluate(X, Y)
-
     def save(self, filename):
         """Saves the instance object to a file in pickle format
 
         Args.
             filename: the file to which the object should be saved
         """
+
         if filename[-4:] != ".pkl":
             filename = filename + ".pkl"
         with open(filename, 'wb') as f:
@@ -246,6 +253,7 @@ class DeepNeuralNetwork:
         Returns.
             The loaded object, or None if filename doesn’t exist
         """
+
         try:
             with open(filename, 'rb') as f:
                 obj = pickle.load(f)
