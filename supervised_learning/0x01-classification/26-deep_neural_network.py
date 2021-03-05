@@ -29,7 +29,7 @@ class DeepNeuralNetwork:
         self.__L = len(layers)
         self.__cache = {}
         self.__weights = {}
-        for i in range(self.L):
+        for i in range(self.__L):
             if type(layers[i]) is not int or layers[i] <= 0:
                 raise TypeError("layers must be a list of positive integers")
             W_key = "W{}".format(i + 1)
@@ -39,8 +39,8 @@ class DeepNeuralNetwork:
                                        self.nx) * np.sqrt(2 / self.nx))
             else:
                 self.weights[W_key] = (np.random.randn(layers[i],
-                                       layers[i - 1])
-                                       * np.sqrt(2 / layers[i - 1]))
+                                       layers[i - 1]) *
+                                       np.sqrt(2 / layers[i - 1]))
             self.weights[b_key] = np.zeros((layers[i], 1))
 
     @property
@@ -75,7 +75,7 @@ class DeepNeuralNetwork:
             w_weights = self.__weights["W{}".format(i+1)]
             Z = np.matmul(w_weights, cache) + b_weights
             self.__cache["A{}".format(i + 1)] = (np.exp(Z) / (np.exp(Z) + 1))
-        return (self.__cache["A{}".format(i + 1)], self.__cache)
+        return self.__cache["A{}".format(i + 1)], self.__cache
 
     def cost(self, Y, A):
         """Calculates the cost of the model using logistic regression
@@ -176,7 +176,7 @@ class DeepNeuralNetwork:
                 raise ValueError("step must be positive and <= iterations")
         step_list = []
         cost_list = []
-        for i in range(iterations + 1):
+        for i in range(iterations):
             self.forward_prop(X)
             self.gradient_descent(Y, self.__cache, alpha)
 
@@ -188,7 +188,7 @@ class DeepNeuralNetwork:
                     print("Cost after {} iterations: {}".format(i, cost))
 
         if graph:
-            plt.plot(step_list, cost_list)
+            plt.plot(step_list, cost_list, 'b-')
             plt.xlabel("iteration")
             plt.ylabel("cost")
             plt.title("Trainig Cost")
