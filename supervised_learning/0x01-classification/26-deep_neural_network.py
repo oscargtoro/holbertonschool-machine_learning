@@ -159,6 +159,7 @@ class DeepNeuralNetwork:
             The evaluation of the training data after iterations of training
             have occurred
         """
+
         if not isinstance(iterations, int):
             raise TypeError("iterations must be an integer")
         if iterations <= 0:
@@ -177,12 +178,12 @@ class DeepNeuralNetwork:
         for i in range(iterations + 1):
             self.forward_prop(X)
             self.gradient_descent(Y, self.__cache, alpha)
-            cost = self.cost(Y, self.__cache["A{}".format(self.__L)])
 
-            if verbose:
-                if i % step == 0 or step == iterations:
-                    step_list.append(i)
-                    cost_list.append(cost)
+            if i % step == 0 or i == iterations:
+                cost = self.cost(Y, self.__cache['A{}'.format(self.L)])
+                cost_list.append(cost)
+                steps_list.append(i)
+                if verbose is True:
                     print("Cost after {} iterations: {}".format(i, cost))
 
         if graph:
@@ -194,12 +195,15 @@ class DeepNeuralNetwork:
 
         return self.evaluate(X, Y)
 
+        return self.evaluate(X, Y)
+
     def save(self, filename):
         """Saves the instance object to a file in pickle format
 
         Args.
             filename: the file to which the object should be saved
         """
+
         if filename[-4:] != ".pkl":
             filename = filename + ".pkl"
         with open(filename, 'wb') as f:
@@ -215,6 +219,7 @@ class DeepNeuralNetwork:
         Returns.
             The loaded object, or None if filename doesn’t exist
         """
+
         try:
             with open(filename, 'rb') as f:
                 obj = pickle.load(f)
