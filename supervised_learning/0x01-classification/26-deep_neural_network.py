@@ -126,14 +126,21 @@ class DeepNeuralNetwork:
             b_key = "b{}".format(i)
             dW = (1/m)*np.matmul(dZ, self.__cache[A_key].T)
             db = (1/m)*np.sum(dZ, axis=1, keepdims=True)
-            dZ_1 = np.matmul(self.__weights[W_keyW].T, dZ)
+            dZ_1 = np.matmul(self.__weights[W_key].T, dZ)
             dZ_2 = self.__cache[A_key] * (1 - self.__cache[A_key])
             dZ = dZ_1 * dZ_2
 
             self.__weights[W_key] = self.__weights[W_key] - alpha*dW
             self.__weights[b_key] = self.__weights[b_key] - alpha*db
 
-    def train(self, X, Y, iterations=5000, alpha=0.05):
+    def train(self,
+              X,
+              Y,
+              iterations=5000,
+              alpha=0.05,
+              verbose=True,
+              graph=True,
+              step=100):
         """Trains the deep neural network
 
         Args.
@@ -142,6 +149,11 @@ class DeepNeuralNetwork:
             labels for the input data
             iterations: The number of iterations to train over
             alpha: the learning rate
+            verbose: is a boolean that defines whether or not to print
+            information about the training.
+            graph: is a boolean that defines whether or not to graph
+            information about the training once the training has completed.
+            step: Point in wich to print the training info or training graph
 
         Returns:
             The evaluation of the training data after iterations of training
