@@ -115,7 +115,7 @@ class DeepNeuralNetwork:
             The cost
         """
 
-        return (-1 / (Y.shape[1])) * np.sum(Y * np.log(A))
+        return -(1 / Y.shape[1]) * np.sum(Y * np.log(A))
 
     def evaluate(self, X, Y):
         """Evaluates the neural network’s predictions
@@ -149,7 +149,7 @@ class DeepNeuralNetwork:
         m = Y.shape[1]
         weights = self.__weights.copy()
 
-        for i in range(self.__L - 1, 0, -1):
+        for i in range(self.__L - 1, -1, -1):
             A_key = "A{}".format(i + 1)
             W_key = "W{}".format(i + 1)
             b_key = "b{}".format(i + 1)
