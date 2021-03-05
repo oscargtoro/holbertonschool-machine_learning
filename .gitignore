@@ -1,6 +1,8 @@
 *
 !*/
+*pycache*
 !*.py
+![0-9]*
 *main*
 !*.md
 !.gitignore

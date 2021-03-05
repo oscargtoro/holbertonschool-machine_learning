@@ -68,8 +68,8 @@ class DeepNeuralNetwork:
         self.__cache["A0"] = X
         for i in range(self.__L):
             cache = self.__cache["A{}".format(i)]
-            b_weights = self.__weights["b{}".format(i+1)]
-            w_weights = self.__weights["W{}".format(i+1)]
-            Z = np.matmul(w_weights, cache + b_weights)
+            b_weight = self.__weights["b{}".format(i + 1)]
+            w_weight = self.__weights["W{}".format(i + 1)]
+            Z = np.matmul(w_weight, cache) + b_weight
             self.__cache["A{}".format(i + 1)] = (np.exp(Z) / (np.exp(Z) + 1))
         return (self.__cache["A{}".format(i + 1)], self.__cache)
