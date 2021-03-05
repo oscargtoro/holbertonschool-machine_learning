@@ -32,14 +32,15 @@ class DeepNeuralNetwork:
         for i in range(self.L):
             if type(layers[i]) is not int or layers[i] <= 0:
                 raise TypeError("layers must be a list of positive integers")
-            W_key = "W{}".format(i+1)
-            b_key = "b{}".format(i+1)
+            W_key = "W{}".format(i + 1)
+            b_key = "b{}".format(i + 1)
             if i == 0:
                 self.weights[W_key] = (np.random.randn(layers[i],
                                        self.nx) * np.sqrt(2 / self.nx))
             else:
                 self.weights[W_key] = (np.random.randn(layers[i],
-                                       layers[i-1]) * np.sqrt(2/layers[i-1]))
+                                       layers[i - 1])
+                                       * np.sqrt(2 / layers[i - 1]))
             self.weights[b_key] = np.zeros((layers[i], 1))
 
     @property
@@ -132,14 +133,14 @@ class DeepNeuralNetwork:
             A_key = "A{}".format(i-1)
             W_key = "W{}".format(i)
             b_key = "b{}".format(i)
-            dW = (1/m)*np.matmul(dZ, self.__cache[A_key].T)
-            db = (1/m)*np.sum(dZ, axis=1, keepdims=True)
+            dW = (1 / m) * np.matmul(dZ, self.__cache[A_key].T)
+            db = (1 / m) * np.sum(dZ, axis=1, keepdims=True)
             dZ_1 = np.matmul(self.__weights[W_key].T, dZ)
             dZ_2 = self.__cache[A_key] * (1 - self.__cache[A_key])
             dZ = dZ_1 * dZ_2
 
-            self.__weights[W_key] = self.__weights[W_key] - alpha*dW
-            self.__weights[b_key] = self.__weights[b_key] - alpha*db
+            self.__weights[W_key] = self.__weights[W_key] - alpha * dW
+            self.__weights[b_key] = self.__weights[b_key] - alpha * db
 
     def train(self,
               X,
@@ -190,7 +191,7 @@ class DeepNeuralNetwork:
             if i % step == 0 or i == iterations:
                 cost = self.cost(Y, self.__cache['A{}'.format(self.L)])
                 cost_list.append(cost)
-                steps_list.append(i)
+                step_list.append(i)
                 if verbose is True:
                     print("Cost after {} iterations: {}".format(i, cost))
 
