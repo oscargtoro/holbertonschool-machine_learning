@@ -87,9 +87,10 @@ class DeepNeuralNetwork:
         Returns:
             The cost
         """
+
         m = Y.shape[1]
-        nm = np.multiply
-        cs = -(np.sum(nm(Y, np.log(A)) + nm((1 - Y), np.log(1.0000001 - A))))
+        c_mul = np.multiply((1 - Y), np.log(1.0000001 - A))
+        cs = (-1 / m) * (np.sum(np.multiply(Y, np.log(A)) + c_mul))
         return cs / m
 
     def evaluate(self, X, Y):
