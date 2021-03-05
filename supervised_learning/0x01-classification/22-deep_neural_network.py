@@ -124,7 +124,7 @@ class DeepNeuralNetwork:
             b_key = "b{}".format(i)
             dW = (1/m)*np.matmul(dZ, self.__cache[A_key].T)
             db = (1/m)*np.sum(dZ, axis=1, keepdims=True)
-            dZ_1 = np.matmul(self.__weights[W_keyW].T, dZ)
+            dZ_1 = np.matmul(self.__weights[W_key].T, dZ)
             dZ_2 = self.__cache[A_key] * (1 - self.__cache[A_key])
             dZ = dZ_1 * dZ_2
 
