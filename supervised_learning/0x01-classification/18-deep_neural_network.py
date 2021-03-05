@@ -24,9 +24,9 @@ class DeepNeuralNetwork:
         if type(layers) is not list or len(layers) < 1:
             raise TypeError("layers must be a list of positive integers")
         self.nx = nx
-        self.L = len(layers)
-        self.cache = {}
-        self.weights = {}
+        self.__L = len(layers)
+        self.__cache = {}
+        self.__weights = {}
         for i in range(self.L):
             if type(layers[i]) is not int or layers[i] <= 0:
                 raise TypeError("layers must be a list of positive integers")
@@ -39,3 +39,37 @@ class DeepNeuralNetwork:
                 self.weights[W_key] = (np.random.randn(layers[i],
                                        layers[i-1]) * np.sqrt(2/layers[i-1]))
             self.weights[b_key] = np.zeros((layers[i], 1))
+
+    @property
+    def L(self):
+        """L getter"""
+        return self.__L
+
+    @property
+    def cache(self):
+        """cache getter"""
+        return self.__cache
+
+    @property
+    def weights(self):
+        """weights getter"""
+        return self.__weights
+
+    def forward_prop(self, X):
+        """Calculates the forward propagation of the neural network
+
+        Args.
+            X: numpy.ndarray with shape (nx, m) that contains the input data
+
+        Returns:
+            The output of the neural network and the cache, respectively
+        """
+
+        self.__cache["A0"] = X
+        for i in range(self.__L):
+            cache = self.__cache["A{}".format(i)]
+            b_weights = self.__weights["b{}".format(i+1)]
+            w_weights = self.__weights["W{}".format(i+1)]
+            Z = np.matmul(w_weights, cache + b_weights)
+            self.__cache["A{}".format(i + 1)] = (np.exp(Z) / (np.exp(Z) + 1))
+        return (self.__cache["A{}".format(i + 1)], self.__cache)
