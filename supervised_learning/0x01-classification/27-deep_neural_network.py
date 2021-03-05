@@ -184,7 +184,7 @@ class DeepNeuralNetwork:
                 raise ValueError("step must be positive and <= iterations")
         step_list = []
         cost_list = []
-        for i in range(iterations + 1):
+        for i in range(iterations):
             self.forward_prop(X)
             self.gradient_descent(Y, self.__cache, alpha)
 
@@ -210,6 +210,7 @@ class DeepNeuralNetwork:
         Args.
             filename: the file to which the object should be saved
         """
+
         if filename[-4:] != ".pkl":
             filename = filename + ".pkl"
         with open(filename, 'wb') as f:
@@ -225,6 +226,7 @@ class DeepNeuralNetwork:
         Returns.
             The loaded object, or None if filename doesn’t exist
         """
+
         try:
             with open(filename, 'rb') as f:
                 obj = pickle.load(f)
