@@ -15,6 +15,9 @@ def calc(matrix):
     """
 
     m_len = len(matrix)
+    if m_len == 0:
+        return 1
+
     if m_len == 1:
         return matrix[0][0]
 
