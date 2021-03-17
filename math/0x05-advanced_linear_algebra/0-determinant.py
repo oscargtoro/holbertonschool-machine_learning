@@ -18,7 +18,6 @@ def calc(matrix):
     det = []
 
     if m_len == 0:
-        print(1)
         return 1
 
     if m_len == 1:

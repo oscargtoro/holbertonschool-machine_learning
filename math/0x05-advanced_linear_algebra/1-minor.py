@@ -15,8 +15,12 @@ def calc(matrix):
     """
 
     m_len = len(matrix)
+    det = []
+
     if m_len == 0:
+        print(1)
         return 1
+
     if m_len == 1:
         return matrix[0][0]
 
@@ -25,12 +29,26 @@ def calc(matrix):
 
     for i in range(m_len):
         if i == 0:
-            return matrix[0][i] * calc([sub[i + 1:] for sub in matrix[i + 1:]])
+            det.append(matrix[0][i]
+                       * calc([sub[i + 1:] for sub in matrix[i + 1:]]))
         elif i == m_len - 1:
-            return matrix[0][i] * calc([sub[:i] for sub in matrix[1:]])
+            if i % 2 != 0:
+                det.append(-matrix[0][i]
+                           * calc([sub[:i] for sub in matrix[1:]]))
+            else:
+                det.append(matrix[0][i]
+                           * calc([sub[:i] for sub in matrix[1:]]))
         else:
-            return matrix[0][i] * calc([sub[:i]
-                                        + sub[i + 1:] for sub in matrix[1:]])
+            if i % 2 != 0:
+                det.append(-matrix[0][i]
+                           * calc([sub[:i]
+                                  + sub[i + 1:] for sub in matrix[1:]]))
+            else:
+                det.append(matrix[0][i]
+                           * calc([sub[:i]
+                                  + sub[i + 1:] for sub in matrix[1:]]))
+
+    return sum(det)
 
 
 def minor(matrix):
