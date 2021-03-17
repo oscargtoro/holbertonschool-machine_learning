@@ -15,6 +15,8 @@ def calc(matrix):
     """
 
     m_len = len(matrix)
+    det = []
+
     if m_len == 0:
         return 1
 
@@ -26,12 +28,25 @@ def calc(matrix):
 
     for i in range(m_len):
         if i == 0:
-            return matrix[0][i] * calc([sub[i + 1:] for sub in matrix[i + 1:]])
+            det.append(matrix[0][i]
+                       * calc([sub[i + 1:] for sub in matrix[i + 1:]]))
         elif i == m_len - 1:
-            return matrix[0][i] * calc([sub[:i] for sub in matrix[1:]])
+            if i % 2 != 0:
+                det.append(-matrix[0][i]
+                           * calc([sub[:i] for sub in matrix[1:]]))
+            else:
+                det.append(matrix[0][i]
+                           * calc([sub[:i] for sub in matrix[1:]]))
         else:
-            return matrix[0][i] * calc([sub[:i]
-                                        + sub[i + 1:] for sub in matrix[1:]])
+            if i % 2 != 0:
+                det.append(-matrix[0][i]
+                           * calc([sub[:i]
+                                  + sub[i + 1:] for sub in matrix[1:]]))
+            else:
+                det.append(matrix[0][i]
+                           * calc([sub[:i]
+                                  + sub[i + 1:] for sub in matrix[1:]]))
+    return sum(det)
 
 
 def determinant(matrix):
@@ -57,30 +72,7 @@ def determinant(matrix):
     if m_len == 2:
         return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
 
-    det = []
-    for i in range(m_len):
-        if i == 0:
-            det.append(matrix[0][i]
-                       * calc([sub[i + 1:] for sub in matrix[i + 1:]]))
-        elif i == m_len - 1:
-            if i % 2 != 0:
-                det.append(-matrix[0][i]
-                           * calc([sub[:i] for sub in matrix[1:]]))
-            else:
-                det.append(matrix[0][i]
-                           * calc([sub[:i] for sub in matrix[1:]]))
-
-        else:
-            if i % 2 != 0:
-                det.append(-matrix[0][i]
-                           * calc([sub[:i]
-                                   + sub[i + 1:] for sub in matrix[1:]]))
-            else:
-                det.append(matrix[0][i]
-                           * calc([sub[:i]
-                                   + sub[i + 1:] for sub in matrix[1:]]))
-
-    return sum(det)
+    return calc(matrix)
 
 
 def minor(matrix):
