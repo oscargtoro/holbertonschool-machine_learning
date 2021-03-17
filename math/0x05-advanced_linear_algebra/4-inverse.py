@@ -66,7 +66,7 @@ def determinant(matrix):
     if not all(isinstance(x, list) for x in matrix):
         raise TypeError("matrix must be a list of lists")
     if not all(len(matrix) == len(x) for x in matrix):
-        raise ValueError("matrix must be a square matrix")
+        raise ValueError("matrix must be a non-empty square matrix")
     if m_len == 1:
         return matrix[0][0]
     if m_len == 2:
