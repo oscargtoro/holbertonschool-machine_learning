@@ -22,6 +22,6 @@ def mean_cov(X):
     """
 
     mean = np.mean(X, axis=0).reshape(1, X.shape[1])
-    cov = np.matmul(X.T - mean.T, X - mean) / X.shape[0]
+    cov = np.matmul(X.T - mean.T, X - mean) / (X.shape[0] - 1)
 
     return mean, cov
