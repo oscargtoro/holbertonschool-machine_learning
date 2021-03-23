@@ -52,4 +52,4 @@ class MultiNormal:
         exponent = -0.5 * np.matmul(np.matmul((x - self.mean).T,
                                     np.linalg.inv(self.cov)), x - self.mean)
 
-        return np.exp(exponent[0][0]) / denominator
+        return (1 / denominator) * np.exp(exponent[0][0])
