@@ -27,3 +27,30 @@ class MultiNormal:
         cov = np.matmul(data - mean, data.T - mean.T) / (data.shape[1] - 1)
         self.mean = mean
         self.cov = cov
+
+    def pdf(self, x):
+        """Calculates the PDF at a data point
+
+        Args.
+            x is numpy.ndarray of shape (d, 1) containing the data point whose
+            PDF should be calculated
+                -d is the number of dimensions of the Multinomial instance
+
+        Returns.
+            The value of the PDF
+        """
+
+        if not isinstance(x, np.ndarray):
+            raise TypeError("x must be a numpy.ndarray")
+        if x.shape != (self.cov.shape[0], 1):
+            raise ValueError("x must have the shape ({d}, 1)")
+
+        c_det = np.linalg.det(self.cov)
+        c_inv = np.linalg.inv(self.cov)
+
+        denominator = np.sqrt(((2 * np.pi) ** x.shape[0])
+                              * np.linalg.det(self.cov))
+        exponent = -0.5 * np.matmul(np.matmul((x - self.mean).T,
+                                    np.linalg.inv(self.cov)), x - self.mean)
+
+        return np.exp(exponent[0][0]) / denominator
