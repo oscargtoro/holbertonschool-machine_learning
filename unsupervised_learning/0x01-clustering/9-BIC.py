@@ -38,4 +38,6 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
         of data points used to create the model and the log likelihood of the
         model or None, None, None, None on failure
     """
+    for x in range(len(X.shape[0])):
+        pass
     return None, None, None, None
