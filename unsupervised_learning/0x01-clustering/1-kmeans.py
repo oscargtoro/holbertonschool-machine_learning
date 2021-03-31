@@ -23,4 +23,4 @@ def kmeans(X, k, iterations=1000):
         cluster in C that each data point belongs to.
         None on failure.
     """
-    pass
+    return None
