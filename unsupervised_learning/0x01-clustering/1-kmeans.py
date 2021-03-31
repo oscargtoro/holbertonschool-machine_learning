@@ -17,10 +17,9 @@ def kmeans(X, k, iterations=1000):
         iterations that should be performed
 
     Returns:
-        C: a numpy.ndarray of shape (k, d) containing the centroid means for
-        each cluster.
-        clss: a numpy.ndarray of shape (n,) containing the index of the
-        cluster in C that each data point belongs to.
-        None on failure.
+        A numpy.ndarray of shape (k, d) containing the centroid means for
+        each cluster and a numpy.ndarray of shape (n,) containing the index of
+        the cluster in C that each data point belongs to, or None, None on
+        failure.
     """
-    return None
+    return None, None
