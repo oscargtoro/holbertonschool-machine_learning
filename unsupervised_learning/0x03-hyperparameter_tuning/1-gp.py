@@ -36,13 +36,16 @@ class GaussianProcess:
 
         pass
 
-    def update(self, X_new, Y_new):
-        """Updates a Gaussian Process
+    def predict(self, X_s):
+        """Predicts the mean and standard deviation of points in a Gaussian
+        process
+            X_s: a numpy.ndarray containing all of the points whose mean and
+            standard deviation should be calculated
 
-        Args.
-            X_new: a numpy.ndarray that represents the new sample point
-            Y_new: a numpy.ndarray that represents the new sample function
-            value
+        Returns:
+            A numpy.ndarray containing the mean for each point in X_s,
+            respectively and a numpy.ndarray containing the variance for each
+            point in X_s
         """
 
         pass
