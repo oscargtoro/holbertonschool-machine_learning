@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Module for the class LSTMCell
+"""Module for the method deep_rnn
 """
 
 import numpy as np
