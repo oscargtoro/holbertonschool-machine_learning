@@ -51,17 +51,17 @@ class BidirectionalCell:
         """
         pass
 
-    def backward(self, h_next, x_t):
-        """Calculates the hidden state in the backward direction for one time
-        step
+    def output(self, H):
+        """That calculates all outputs for the RNN
 
         Args.
-            x_t: numpy.ndarray of shape (m, i) that contains the data input for
-            the cell
+            H: numpy.ndarray of shape (t, m, 2 * h) that contains the
+            concatenated hidden states from both directions, excluding their
+            initialized states
+                -t is the number of time steps
                 -m is the batch size for the data
-            h_next: numpy.ndarray of shape (m, h) containing the next hidden
-            state
+                -h is the dimensionality of the hidden states
         Returns.
-            The previous hidden state
+            The outputs
         """
         pass
