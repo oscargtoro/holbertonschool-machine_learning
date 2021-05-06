@@ -200,5 +200,5 @@ def inverse(matrix):
     inv_matrix = []
 
     for sub_list in adj_matrix:
-        inv_matrix.append([(x * (1 / det)) for x in sub_list])
+        inv_matrix.append([(x / det) for x in sub_list])
     return inv_matrix
