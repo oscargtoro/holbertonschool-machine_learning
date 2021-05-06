@@ -21,4 +21,8 @@ def pca(X, var=0.95):
         variance
     """
 
-    pass
+    _, s, vh = np.linalg.svd(X)
+    c_sum = np.cumsum(s)
+    s_sum = np.sum(s)
+    r = np.argmax(c_sum > s_sum * var) + 1
+    return vh[:r].T

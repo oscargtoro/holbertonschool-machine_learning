@@ -20,4 +20,7 @@ def pca(X, ndim):
         version of X
     """
 
-    pass
+    X = X - np.mean(X, axis=0)
+    _, s, vh = np.linalg.svd(X)
+    T = np.matmul(X, vh[:ndim].T)
+    return T
