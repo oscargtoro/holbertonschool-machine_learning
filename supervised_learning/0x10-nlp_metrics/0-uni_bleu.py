@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Module for the method uni_bleu
 """
-# from nltk.translate.bleu_score import modified_precision, sentence_bleu
 
 
 def uni_bleu(references, sentence):
