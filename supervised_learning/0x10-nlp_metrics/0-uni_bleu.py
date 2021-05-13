@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Module for the method uni_bleu
 """
-# from nltk.translate.bleu_score import corpus_bleu, sentence_bleu
+from nltk.translate.bleu_score import corpus_bleu, sentence_bleu
 
 
 def uni_bleu(references, sentence):
@@ -15,5 +15,5 @@ def uni_bleu(references, sentence):
     Returns.
         The unigram BLEU score
     """
-    # return sentence_bleu(references, sentence)
-    return 0.0
+    return sentence_bleu(references, sentence, weights=(1, 0, 0, 0))
+    # return 0.0
