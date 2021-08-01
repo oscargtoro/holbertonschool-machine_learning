@@ -115,4 +115,6 @@ def marginal(x, n, P, Pr):
         raise ValueError(msg)
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
-    pass
+
+    # Marginal probability is the sum of the probabilities of x happening
+    return np.sum(intersection(x, n, P, Pr))
