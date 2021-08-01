@@ -33,7 +33,11 @@ def likelihood(x, n, P):
         raise TypeError("P must be a 1D numpy.ndarray")
     if not all([0 <= x <= 1 for x in P]):
         raise ValueError("All values in P must be in the range [0, 1]")
-    pass
+    nfact = np.math.factorial(n)
+    xfact = np.math.factorial(x)
+    nxfact = np.math.factorial(n - x)
+    combination = nfact / (xfact * nxfact)
+    return combination * np.power(P, x) * np.power((1 - P), (n - x))
 
 
 def intersection(x, n, P, Pr):
@@ -73,4 +77,4 @@ def intersection(x, n, P, Pr):
         raise ValueError(msg)
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
-    pass
+
