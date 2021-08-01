@@ -77,4 +77,4 @@ def intersection(x, n, P, Pr):
         raise ValueError(msg)
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
-
+    return Pr * likelihood(x, n, P)
