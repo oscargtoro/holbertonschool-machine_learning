@@ -33,7 +33,11 @@ def likelihood(x, n, P):
         raise TypeError("P must be a 1D numpy.ndarray")
     if not all([0 <= x <= 1 for x in P]):
         raise ValueError("All values in P must be in the range [0, 1]")
-    pass
+    nfact = np.math.factorial(n)
+    xfact = np.math.factorial(x)
+    nxfact = np.math.factorial(n - x)
+    combination = nfact / (xfact * nxfact)
+    return combination * np.power(P, x) * np.power((1 - P), (n - x))
 
 
 def intersection(x, n, P, Pr):
@@ -61,7 +65,7 @@ def intersection(x, n, P, Pr):
         raise ValueError("x cannot be greater than n")
     if not isinstance(P, np.ndarray) or len(P.shape) != 1:
         raise TypeError("P must be a 1D numpy.ndarray")
-    if not isinstance(Pr, np.ndarray) or len(Pr.shape) != len(P.shape):
+    if not isinstance(Pr, np.ndarray) or Pr.shape != P.shape:
         raise TypeError("Pr must be a numpy.ndarray with the same shape as P")
     P_valtest = all([0 <= x <= 1 for x in P])
     Pr_valtest = all([0 <= x <= 1 for x in Pr])
@@ -73,7 +77,7 @@ def intersection(x, n, P, Pr):
         raise ValueError(msg)
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
-    pass
+    return Pr * likelihood(x, n, P)
 
 
 def marginal(x, n, P, Pr):
@@ -99,7 +103,7 @@ def marginal(x, n, P, Pr):
         raise ValueError("x cannot be greater than n")
     if not isinstance(P, np.ndarray) or len(P.shape) != 1:
         raise TypeError("P must be a 1D numpy.ndarray")
-    if not isinstance(Pr, np.ndarray) or len(Pr.shape) != len(P.shape):
+    if not isinstance(Pr, np.ndarray) or Pr.shape != P.shape:
         raise TypeError("Pr must be a numpy.ndarray with the same shape as P")
     P_valtest = all([0 <= x <= 1 for x in P])
     Pr_valtest = all([0 <= x <= 1 for x in Pr])
@@ -111,7 +115,8 @@ def marginal(x, n, P, Pr):
         raise ValueError(msg)
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
-    pass
+    # Marginal probability is the sum of the probabilities of x happening
+    return np.sum(intersection(x, n, P, Pr))
 
 
 def posterior(x, n, P, Pr):
@@ -138,7 +143,7 @@ def posterior(x, n, P, Pr):
         raise ValueError("x cannot be greater than n")
     if not isinstance(P, np.ndarray) or len(P.shape) != 1:
         raise TypeError("P must be a 1D numpy.ndarray")
-    if not isinstance(Pr, np.ndarray) or len(Pr.shape) != len(P.shape):
+    if not isinstance(Pr, np.ndarray) or Pr.shape != P.shape:
         raise TypeError("Pr must be a numpy.ndarray with the same shape as P")
     P_valtest = all([0 <= x <= 1 for x in P])
     Pr_valtest = all([0 <= x <= 1 for x in Pr])
@@ -150,4 +155,4 @@ def posterior(x, n, P, Pr):
         raise ValueError(msg)
     if not np.isclose(np.sum(Pr), 1):
         raise ValueError("Pr must sum to 1")
-    pass
+    return (intersection(x, n, P, Pr) / marginal(x, n, P, Pr))
