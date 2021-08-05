@@ -2,6 +2,8 @@
 """Module for the function kmeans
 """
 
+from math import sqrt
+from matplotlib.pyplot import axis
 import numpy as np
 
 
@@ -22,4 +24,29 @@ def kmeans(X, k, iterations=1000):
         the cluster in C that each data point belongs to, or None, None on
         failure.
     """
-    return None, None
+
+    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+        return None, None
+    if not isinstance(k, int) or k <= 0:
+        return None, None
+
+    low = X.min(axis=0)
+    high = X.max(axis=0)
+
+    c = np.random.uniform(low, high, (k, X.shape[1]))
+
+    for _ in range(0, iterations):
+        distances = np.sqrt(((X - c[:, np.newaxis])**2).sum(axis=2))
+        minDistances = np.argmin(distances, axis=0)
+        cNew = []
+        for i in range(c.shape[0]):
+            if i not in minDistances:
+                cNew.append(np.random.uniform(low, high, (1, X.shape[1]))[0])
+                continue
+            cNew.append(X[np.argmin(distances, axis=0) == i].mean(axis=0))
+        if np.array_equal(cNew, c):
+            return np.array(cNew), minDistances
+        else:
+            c = np.array(cNew)
+
+    return c, minDistances
