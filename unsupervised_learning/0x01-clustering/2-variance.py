@@ -16,4 +16,12 @@ def variance(X, C):
         The total variance or None on failure
 
     """
-    return None
+
+    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+        return None
+    if not isinstance(C, np.ndarray) or len(X.shape) != 2:
+        return None
+    if C.shape[1] != X.shape[1]:
+        return None
+    distance = ((X - C[:, np.newaxis])**2).sum(axis=2)
+    return np.sum(np.min(distance, axis=0))
