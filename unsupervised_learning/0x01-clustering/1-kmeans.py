@@ -2,8 +2,6 @@
 """Module for the function kmeans
 """
 
-from math import sqrt
-from matplotlib.pyplot import axis
 import numpy as np
 
 
