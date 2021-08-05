@@ -24,4 +24,23 @@ def optimum_k(X, kmin=1, kmax=None, iterations=1000):
         a list containing the difference in variance from the smallest cluster
         size for each cluster size, or None, None on failure
     """
-    return None, None
+
+    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+        return None, None
+    if not isinstance(kmax, int) or kmax <= 0:
+        return None, None
+    if not isinstance(kmin, int) or kmin <= 0:
+        return None, None
+    if not isinstance(iterations, int) or iterations <= 0:
+        return None, None
+
+    outputs = []
+    differences = []
+    for k in range(kmin, kmax + 1):
+        C, clss = kmeans(X, k, iterations)
+        outputs.append((C, clss))
+        if k == kmin:
+            vTop = variance(X, C)
+        vCurrent = variance(X, C)
+        differences.append(vTop - vCurrent)
+    return outputs, differences
