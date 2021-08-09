@@ -32,21 +32,23 @@ def kmeans(X, k, iterations=1000):
 
     low = X.min(axis=0)
     high = X.max(axis=0)
-
     c = np.random.uniform(low, high, (k, X.shape[1]))
 
-    for _ in range(0, iterations):
+    for _ in range(iterations):
         distances = np.sqrt(((X - c[:, np.newaxis])**2).sum(axis=2))
         clss = np.argmin(distances, axis=0)
         cNew = []
-        for i in range(c.shape[0]):
+        for i in range(k):
             if i not in clss:
                 cNew.append(np.random.uniform(low, high, (1, X.shape[1]))[0])
-                continue
-            cNew.append(X[np.argmin(distances, axis=0) == i].mean(axis=0))
+            else:
+                cNew.append(X[clss == i].mean(axis=0))
         if np.array_equal(cNew, c):
-            return np.array(cNew), clss
+            return c, clss
         else:
             c = np.array(cNew)
+
+    distances = np.sqrt(((X - c[:, np.newaxis])**2).sum(axis=2))
+    clss = np.argmin(distances, axis=0)
 
     return c, clss
