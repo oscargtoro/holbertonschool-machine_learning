@@ -28,6 +28,8 @@ def maximization(X, g):
 
     if not isinstance(g, np.ndarray) or len(g.shape) != 2 or g.shape[1] != n:
         return None, None, None
+    if not np.isclose(np.sum(g, axis=0), np.ones((n,))).all():
+        return None, None, None
 
     pi = []
     m = []
