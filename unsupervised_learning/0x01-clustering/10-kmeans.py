@@ -16,4 +16,6 @@ def kmeans(X, k):
         cluster and a numpy.ndarray of shape (n,) containing the index of the
         cluster in C that each data point belongs to.
     """
-    pass
+
+    _kmeans = sklearn.cluster.KMeans(n_clusters=k).fit(X)
+    return _kmeans.cluster_centers_, _kmeans.labels_
