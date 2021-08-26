@@ -45,7 +45,7 @@ def BIC(X, kmin=1, kmax=None, iterations=1000, tol=1e-5, verbose=False):
     elif not isinstance(kmax, int) or kmax <= 0:
         return None, None, None, None
     if kmin >= kmax:
-        return None, None
+        return None, None, None, None
     if not isinstance(iterations, int) or iterations <= 0:
         return None, None, None, None
     if not isinstance(tol, float) or tol < 0:
