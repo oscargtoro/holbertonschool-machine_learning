@@ -57,8 +57,6 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     decoder = Model(inputs_dec, decoded)
 
-    encoder.summary()
-    decoder.summary()
     # complete autoencoder using the encoder / bottleneck (encoder(inputs_enc))
     # and decoder decoder(encoder)
     auto = Model(inputs_enc, decoder(encoder(inputs_enc)))
