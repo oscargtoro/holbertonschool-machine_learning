@@ -41,7 +41,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
         encoded = Dense(units=units, activation='relu')(encoded)
 
     # the last layer of the model is the latent space representation
-    encoded = Dense(latent_dims, 'relu', l1)(encoded)
+    encoded = Dense(latent_dims, 'relu', activity_regularizer=l1)(encoded)
 
     encoder = Model(inputs=inputs_enc, outputs=encoded)
 
