@@ -49,7 +49,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     decoded = Dense(units=hidden_layers[-1], activation='relu')(inputs_dec)
 
     # same with the encoder but backwards to decode
-    for i in reversed(hidden_layers[:-1]):
+    for units in reversed(hidden_layers[:-1]):
         decoded = Dense(units=units, activation='relu')(decoded)
 
     # the last layer represents the original input
