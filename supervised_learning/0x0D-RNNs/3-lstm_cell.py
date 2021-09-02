@@ -27,7 +27,7 @@ class LSTMCell:
         self.bu = np.zeros((1, h))
         self.bc = np.zeros((1, h))
         self.bo = np.zeros((1, h))
-        self.by = np.zeros((1, h))
+        self.by = np.zeros((1, o))
 
     def forward(self, h_prev, c_prev, x_t):
         """Performs forward propagation for one time step
