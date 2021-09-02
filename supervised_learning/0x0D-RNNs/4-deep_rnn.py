@@ -22,4 +22,23 @@ def deep_rnn(rnn_cells, X, h_0):
         A numpy.ndarray containing all of the hidden states and a numpy.ndarray
         containing all of the outputs
     """
-    pass
+
+    t, m, _ = X.shape
+    l, _, h = h_0.shape
+
+    H = np.zeros((t + 1, l, m, h))
+
+    H[0, :, :, :] = h_0
+
+    Y = []
+
+    for step in range(t):
+        for layer in range(l):
+            if layer == 0:
+                h_next, y = rnn_cells[layer].forward(H[step, layer], X[step])
+            else:
+                h_next, y = rnn_cells[layer].forward(H[step, layer], h_next)
+            H[step + 1, layer] = h_next
+        Y.append(y)
+
+    return H, np.array(Y)
