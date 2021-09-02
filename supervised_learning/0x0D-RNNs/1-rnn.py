@@ -23,4 +23,15 @@ def rnn(rnn_cell, X, h_0):
         A numpy.ndarray containing all of the hidden states and a numpy.ndarray
          containing all of the outputs
     """
-    pass
+
+    t, _, _ = X.shape
+    H = []
+    Y = []
+
+    H.append(h_0)
+    for step in range(t):
+        h_next, y = rnn_cell.forward(H[-1], X[step])
+        H.append(h_next)
+        Y.append(y)
+
+    return np.array(H), np.array(Y)
