@@ -25,4 +25,22 @@ def bi_rnn(bi_cell, X, h_0, h_t):
         a numpy.ndarray containing all of the concatenated hidden states and a
         numpy.ndarray containing all of the outputs
     """
-    pass
+
+    t, m, _ = X.shape
+    _, h = h_0.shape
+
+    h_f = np.zeros((t + 1, m, h))
+    h_b = np.zeros((t + 1, m, h))
+    h_f[0] = h_0
+    h_b[t] = h_t
+
+    for step in range(t):
+        h_f[step + 1] = bi_cell.forward(h_f[step], X[step])
+
+    for step in range(t - 1, -1, -1):
+        h_b[step] = bi_cell.backward(h_b[step + 1], X[step])
+
+    H = np.concatenate((h_f[1:], h_b[0:t]), axis=-1)
+    Y = bi_cell.output(H)
+
+    return H, Y
