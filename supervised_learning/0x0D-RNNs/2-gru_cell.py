@@ -42,12 +42,12 @@ class GRUCell:
         """
 
         con = np.concatenate((h_prev, x_t), axis=1)
-        z_t = 1 / (1 + np.exp(np.matmul(con, self.Wz) + self.bz))
-        r_t = 1 / (1 + np.exp(np.matmul(con, self.Wr) + self.br))
+        z_t = 1 / (1 + np.exp(-1 * (np.matmul(con, self.Wz) + self.bz)))
+        r_t = 1 / (1 + np.exp(-1 * (np.matmul(con, self.Wr) + self.br)))
         imd = np.concatenate((r_t * h_prev, x_t), axis=1)
         h_t = np.tanh(np.matmul(imd, self.Wh) + self.bh)
-        h_next = (1 - z_t) * h_prev + z_t *h_t
-        sof_con = np.matmul(h_next, self.Wy) + self.by
-        y = np.exp(sof_con) / np.sum(np.exp(sof_con), axis=1, keepdims=True)
+        h_next = (1 - z_t) * h_prev + z_t * h_t
+        sof_mm = np.matmul(h_next, self.Wy) + self.by
+        y = np.exp(sof_mm) / np.sum(np.exp(sof_mm), axis=1, keepdims=True)
 
         return h_next, y
