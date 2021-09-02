@@ -17,7 +17,10 @@ class RNNCell:
             h: the dimensionality of the hidden state
             o: the dimensionality of the outputs
         """
-        pass
+        self.Wh = np.random.randn(h + i, h)
+        self.Wy = np.random.randn(h, o)
+        self.bh = np.zeros((1, h))
+        self.by = np.zeros((1, o))
 
     def forward(self, h_prev, x_t):
         """Performs forward propagation for one time step
@@ -32,4 +35,9 @@ class RNNCell:
         Returns.
             The next hidden state and the output of the cell
         """
-        pass
+        con = np.concatenate((h_prev, x_t), axis=1)
+        h_next = np.tanh(np.matmul(con, self.Wh) + self.bh)
+        soft = np.matmul(h_next, self.Wy) + self.by
+        y = np.exp(soft) / np.sum(np.exp(soft), axis=1, keepdims=True)
+
+        return h_next, y
