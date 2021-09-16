@@ -17,37 +17,53 @@ def ngram_bleu(references, sentence, n):
         The n-gram BLEU score
     """
 
-    l_ref = []
-    candidate = []
-    tested = set()
-    cclip = 0
-    r = []
-    for ref in references:
-        n_ref = []
-        for i in range(0, len(ref), n - 1):
-            if i + n == len(ref) + 1:
-                break
-            n_ref.append(" ".join(ref[i: i + n]).lower())
+    sentence_len = len(sentence)
+    references_len = [len(r) for r in references]
 
-        r.append(len(n_ref))
-        l_ref.append(n_ref)
-    for i in range(0, len(sentence), n - 1):
-        if i + n == len(sentence) + 1:
-            break
-        candidate.append(" ".join(sentence[i: i + n]).lower())
+    sentence = n_gram(sentence, n)
+    references = list(map(lambda ref: n_gram(ref, n), references))
+    flatten_ref = set([gram for ref in references for gram in ref])
 
-    c = len(candidate)
-    for n_gram in candidate:
-        if n_gram in tested:
-            continue
-        ref_count = []
-        for ref in l_ref:
-            ref_count.append(ref.count(n_gram))
-        cclip += min(candidate.count(n_gram), max(ref_count))
-        tested.add(n_gram)
+    numerator = 0
+    for gram in flatten_ref:
+        if gram in sentence:
+            numerator += 1
+    precision = numerator / len(sentence)
 
-    r = min(r, key=lambda x: abs(x - c))
-    if c < r:
-        return (cclip / c) * np.exp(1 - r / c)
+    best_match = None
+    for i, ref in enumerate(references):
+        if best_match is None:
+            best_match = ref
+            r_idx = i
+        best_diff = abs(len(best_match) - len(sentence))
+        if abs(len(ref) - len(sentence)) < best_diff:
+            best_match = ref
+            r_idx = i
+
+    r = references_len[r_idx]
+    if sentence_len > r:
+        brevity_penality = 1
     else:
-        return cclip / c
+        brevity_penality = np.exp(1 - r / sentence_len)
+
+    bleu_score = brevity_penality * precision
+    return bleu_score
+
+
+def n_gram(sentence, n):
+    """Tokenize sentence into grams
+    Arguments:
+        sentence {list} -- Is containing the sting
+        n {int} -- Is the prefered n-gram
+    Returns:
+        list -- Containg n-gram sentence
+    """
+    if n <= 1:
+        return sentence
+    step = n - 1
+
+    result = sentence[:-step]
+    for i in range(len(result)):
+        for j in range(step):
+            result[i] += ' ' + sentence[i + 1 + j]
+    return result
