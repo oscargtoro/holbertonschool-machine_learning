@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Module for the method uni_bleu
 """
+import numpy as np
 
 
 def uni_bleu(references, sentence):
@@ -14,21 +15,26 @@ def uni_bleu(references, sentence):
     Returns.
         The unigram BLEU score
     """
-    l_ref = []
-    tested = set()
-    cclip = 0
-    for ref in references:
-        l_ref.append([word.lower() for word in ref])
-    sentence = [word.lower() for word in sentence]
 
-    for word in sentence:
-        word = word.lower()
-        if word in tested:
-            continue
-        ref_count = []
-        for ref in l_ref:
-            ref_count.append(ref.count(word))
-        cclip += min(sentence.count(word), max(ref_count))
-        tested.add(word)
+    sentence_len = len(sentence)
+    reference_len = []
+    words = {}
 
-    return cclip / len(sentence)
+    for i in references:
+        reference_len.append(len(i))
+
+        for word in i:
+            if word in sentence:
+                if not words.keys() == word:
+                    words[word] = 1
+
+    prob = sum(words.values())
+    ind = np.argmin([abs(len(x) - sentence_len) for x in references])
+    best_match = len(references[ind])
+
+    if sentence_len > best_match:
+        bp = 1
+    else:
+        bp = np.exp(1 - float(best_match) / float(sentence_len))
+
+    return bp * np.exp(np.log(prob / sentence_len))
