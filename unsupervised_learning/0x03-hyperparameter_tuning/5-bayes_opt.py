@@ -3,13 +3,14 @@
 """
 
 import numpy as np
+from scipy.stats import norm
+
 GP = __import__('2-gp').GaussianProcess
 
 
 class BayesianOptimization:
     """Performs Bayesian optimization on a noiseless 1D Gaussian process
     """
-
     def __init__(self,
                  f,
                  X_init,
@@ -40,7 +41,12 @@ class BayesianOptimization:
         for minimization (True) or maximization (False)
         """
 
-        pass
+        self.f = f
+        self.gp = GP(X_init, Y_init, l, sigma_f)
+        self.X_s = np.linspace(bounds[0], bounds[1], num=ac_samples)
+        self.X_s = self.X_s.reshape(-1, 1)
+        self.xsi = xsi
+        self.minimize = minimize
 
     def acquisition(self):
         """Calculates the next best sample location
@@ -51,7 +57,24 @@ class BayesianOptimization:
             sample
         """
 
-        pass
+        mu_s, sigma_s = self.gp.predict(self.X_s)
+
+        if self.minimize is True:
+            Y_s = np.min(self.gp.Y)
+            imp = Y_s - mu_s - self.xsi
+
+        else:
+            Y_s = np.max(self.gp.Y)
+            imp = mu_s - Y_s - self.xsi
+
+        with np.errstate(divide='ignore'):
+            Z = imp / sigma_s
+            EI = imp * norm.cdf(Z) + sigma_s * norm.pdf(Z)
+            EI[sigma_s == 0.0] = 0.0
+
+        X_next = self.X_s[np.argmax(EI)]
+
+        return X_next, EI
 
     def optimize(self, iterations=100):
         """Optimizes the black-box function
@@ -64,4 +87,23 @@ class BayesianOptimization:
         representing the optimal function value
         """
 
-        pass
+        for _ in range(iterations):
+            X_next, _ = self.acquisition()
+            Y_next = self.f(X_next)
+
+            if (X_next == self.gp.X).any():
+                self.gp.X = self.gp.X[:-1]
+                break
+
+            self.gp.update(X_next, Y_next)
+
+        if self.minimize:
+            idx = np.argmin(self.gp.Y)
+
+        else:
+            idx = np.argmax(self.gp.Y)
+
+        X_opt = self.gp.X[idx]
+        Y_opt = self.gp.Y[idx]
+
+        return X_opt, Y_opt
