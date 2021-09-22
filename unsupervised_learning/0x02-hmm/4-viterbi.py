@@ -3,7 +3,6 @@
 """
 
 import numpy as np
-from numpy.lib.arraysetops import isin
 
 
 def viterbi(Observation, Emission, Transition, Initial):
