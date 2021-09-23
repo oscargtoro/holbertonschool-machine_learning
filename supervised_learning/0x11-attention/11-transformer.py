@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Module for the class transformer"""
+"""Module for the class transformer
+"""
 
 import tensorflow as tf
 
@@ -20,7 +21,7 @@ class Transformer(tf.keras.Model):
                  max_seq_input,
                  max_seq_target,
                  drop_rate=0.1):
-        """Class constructor
+        """Class constructor.
 
         Args.
             N: The number of blocks in the encoder and decoder.
