@@ -32,8 +32,7 @@ class RNNDecoder(tf.keras.layers.Layer):
         self.F = tf.keras.layers.Dense(units=vocab)
 
     def call(self, x, s_prev, hidden_states):
-        """Initializes the hidden states for the RNN cell to a tensor of zeros.
-
+        """
         Args.
             x: tensor of shape (batch, 1) containing the previous word in the
             target sequence as an index of the target vocabulary.
