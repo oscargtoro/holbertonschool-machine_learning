@@ -48,18 +48,17 @@ class MultiHeadAttention(tf.keras.layers.Layer):
         Q = self.Wq(Q)
         K = self.Wk(K)
         V = self.Wv(V)
-        Q = self.split_heads(Q)
-        K = self.split_heads(K)
-        V = self.split_heads(V)
-        scaled_attention, weights = sdp_attention(Q, K, V, mask)
-        scaled_attention = tf.transpose(scaled_attention, perm=[0, 2, 1, 3])
-        concat_attention = \
-            tf.reshape(scaled_attention, (batch, -1, self.dm))
-        output = self.linear(concat_attention)
+        Q = self.split_heads(Q, batch)
+        K = self.split_heads(K, batch)
+        V = self.split_heads(V, batch)
+        output, weights = sdp_attention(Q, K, V, mask)
+        output = tf.transpose(output, perm=[0, 2, 1, 3])
+        output = tf.reshape(output, (batch, -1, self.dm))
+        output = self.linear(output)
 
         return output, weights
 
-    def split_heads(self, x):
+    def split_heads(self, x, batch):
         """Splits into heads.
 
         Args.
@@ -69,6 +68,5 @@ class MultiHeadAttention(tf.keras.layers.Layer):
             A splited tensor.
         """
 
-        batch = tf.shape(x)[0]
         return tf.transpose(tf.reshape(x, (batch, -1, self.h, self.depth)),
                             perm=[0, 2, 1, 3])
