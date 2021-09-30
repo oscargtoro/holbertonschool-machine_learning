@@ -32,8 +32,6 @@ class Dataset():
         Args.
             data: tf.data.Dataset whose examples are formatted as a tuple
                 (pt, en).
-            pt: tf.Tensor containing the Portuguese sentence.
-            en: tf.Tensor containing the corresponding English sentence.
 
         Returns.
             The Portuguese tokenizer and the English tokenizer.
@@ -83,4 +81,7 @@ class Dataset():
                                       inp=[pt, en],
                                       Tout=[tf.int64, tf.int64])
 
-        return pt_op.set_shape([None]), en_op.set_shape([None])
+        pt_op.set_shape([None])
+        en_op.set_shape([None])
+
+        return pt_op, en_op
