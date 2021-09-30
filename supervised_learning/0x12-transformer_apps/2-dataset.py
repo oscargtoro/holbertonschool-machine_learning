@@ -67,3 +67,20 @@ class Dataset():
             en.numpy()) + [v_size + 1]
 
         return pt_tokens, en_tokens
+
+    def tf_encode(self, pt, en):
+        """Acts as a tensorflow wrapper for the encode instance method.
+
+        Args.
+            pt: tf.Tensor containing the Portuguese sentence.
+            en: tf.Tensor containing the corresponding English sentence.
+
+        Returns.
+            A a tf.tensor op for the pt tf.tensor and en tf.tensor
+        """
+
+        pt_op, en_op = tf.py_function(func=self.encode,
+                                      inp=[pt, en],
+                                      Tout=[tf.int64, tf.int64])
+
+        return pt_op.set_shape([None]), en_op.set_shape([None])
