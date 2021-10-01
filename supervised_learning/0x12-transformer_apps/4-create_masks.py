@@ -20,7 +20,6 @@ def create_masks(inputs, target):
     """
 
     seq = tf.cast(tf.math.equal(inputs, 0), tf.float32)
-    print(seq.shape)
     encoder_mask = seq[:, tf.newaxis, tf.newaxis, :]
 
     seq = tf.cast(tf.math.equal(inputs, 0), tf.float32)
