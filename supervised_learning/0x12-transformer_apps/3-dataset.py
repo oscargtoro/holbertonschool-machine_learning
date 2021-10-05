@@ -22,12 +22,12 @@ class Dataset():
 
         # data_train
         self.data_train = data_train.map(self.tf_encode)
-        self.data_train.filter(lambda x, y: tf.logical_and(
+        self.data_train = self.data_train.filter(lambda x, y: tf.logical_and(
             tf.size(x) <= max_len,
             tf.size(y) <= max_len))
 
         self.data_train = self.data_train.cache()
-        dataset_size = self.data_train.cardinality().numpy()
+        dataset_size = self.data_train.reduce(0, lambda x, _: x + 1).numpy()
         self.data_train = self.data_train.shuffle(dataset_size)
         self.data_train = self.data_train.padded_batch(batch_size)
         self.data_train = self.data_train.prefetch(
@@ -35,7 +35,7 @@ class Dataset():
 
         # data_valid
         self.data_valid = data_valid.map(self.tf_encode)
-        self.data_valid.filter(lambda x, y: tf.logical_and(
+        self.data_valid = self.data_valid.filter(lambda x, y: tf.logical_and(
             tf.size(x) <= max_len,
             tf.size(y) <= max_len))
         self.data_valid = self.data_valid.padded_batch(batch_size)
