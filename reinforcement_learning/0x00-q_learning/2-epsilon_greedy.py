@@ -20,7 +20,7 @@ def epsilon_greedy(Q, state, epsilon):
     """
 
     if np.random.uniform(0, 1) < epsilon:
-        a = np.random.randint(0, Q.shape[1])
+        a = np.random.randint(low=Q.shape[1] - 1)
     else:
         a = np.argmax(Q[state, :])
 
