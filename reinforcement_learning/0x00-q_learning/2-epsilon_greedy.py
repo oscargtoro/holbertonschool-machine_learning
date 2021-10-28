@@ -19,8 +19,9 @@ def epsilon_greedy(Q, state, epsilon):
         The next action index
     """
 
+    print(Q.shape[1])
     if np.random.uniform(0, 1) < epsilon:
-        a = np.random.randint(low=Q.shape[1] - 1)
+        a = np.random.randint(low=Q.shape[1])
     else:
         a = np.argmax(Q[state, :])
 
