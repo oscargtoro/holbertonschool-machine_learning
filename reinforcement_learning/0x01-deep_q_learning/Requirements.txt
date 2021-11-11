@@ -1,0 +1,10 @@
+numpy==1.18.5
+tensorflow==1.14
+gym==0.17.2
+keras==2.2.5
+keras-rl==0.4.2
+tensorflow==1.14
+pycodestyle==2.4
+Pillow
+h5py
+atari-py
