@@ -1,0 +1,11 @@
+name: pandas
+channels:
+  - anaconda
+  - defaults
+dependencies:
+  - python=3.5.*
+  - pip:
+    - pip
+    - pandas==0.24
+    - numpy==1.15
+    - pycodestyle==2.4
