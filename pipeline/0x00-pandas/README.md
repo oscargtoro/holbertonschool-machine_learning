@@ -124,3 +124,19 @@ Executing this file, using Bitcoin's coinbase dataset from *2014-12-01*, should 
 2099758 2019-01-07 22:05:00  4005.50
 2099759 2019-01-07 22:06:00  4005.99
 ```
+
+## 4-array.py
+This script takes the last 10 rows of the columns High and Close and convert them into a *numpy.ndarray*. Executing this file, using Bitcoin's coinbase dataset from *2014-12-01*, should give this output:
+
+```
+[[4009.54 4007.01]
+ [4007.01 4003.49]
+ [4007.29 4006.57]
+ [4006.57 4006.56]
+ [4006.57 4006.01]
+ [4006.57 4006.01]
+ [4006.57 4006.01]
+ [4006.01 4006.01]
+ [4006.01 4005.5 ]
+ [4006.01 4005.99]]
+```
