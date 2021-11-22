@@ -114,7 +114,7 @@ This file contains a script that performs the following:
 - Converts the timestamp values to datatime values.
 - Displays only the Datetime and Close columns.
 
-Executing this file, using Bitcoin's coinbase dataset from *2014-12-01*, should give this output:
+Executing this file, using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09*, should give this output:
 
 ```
                    Datetime    Close
@@ -126,7 +126,7 @@ Executing this file, using Bitcoin's coinbase dataset from *2014-12-01*, should 
 ```
 
 ## 4-array.py
-This script takes the last 10 rows of the columns High and Close and convert them into a *numpy.ndarray*. Executing this file, using Bitcoin's coinbase dataset from *2014-12-01*, should give this output:
+This script takes the last 10 rows of the columns High and Close and convert them into a *numpy.ndarray*. Executing this file, using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09*, should give this output:
 
 ```
 [[4009.54 4007.01]
