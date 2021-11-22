@@ -7,3 +7,5 @@
 *main*
 !*.md
 !.gitignore
+!*.yml
+!Requirements.txt
