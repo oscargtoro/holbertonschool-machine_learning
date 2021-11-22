@@ -140,3 +140,15 @@ This script takes the last 10 rows of the columns High and Close and convert the
  [4006.01 4005.5 ]
  [4006.01 4005.99]]
 ```
+
+## 5-slice.py
+This script slices a *pd.DataFrame* along the columns High, Low, Close, and Volume_(BTC), taking every 60th row. Executing this file, using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09*, should give this output:
+
+```
+            High      Low    Close  Volume_(BTC)
+2099460  4020.08  4020.07  4020.08      4.704989
+2099520  4020.94  4020.93  4020.94      2.111411
+2099580  4020.00  4019.01  4020.00      4.637035
+2099640  4017.00  4016.99  4017.00      2.362372
+2099700  4014.78  4013.50  4014.72      1.291557
+```
