@@ -106,3 +106,21 @@ Using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09* and bitstamp 
 4363455  1587513540  6854.18  6854.98  6854.18  6854.98      0.012231          83.831604     6854.195090
 4363456  1587513600  6850.60  6850.60  6850.60  6850.60      0.014436          98.896906     6850.600000
 ```
+
+## 3-rename.py
+This file contains a script that performs the following:
+
+- Renames the column Timestamp to Datetime.
+- Converts the timestamp values to datatime values.
+- Displays only the Datetime and Close columns.
+
+Executing this file, using Bitcoin's coinbase dataset from *2014-12-01*, should give this output:
+
+```
+                   Datetime    Close
+2099755 2019-01-07 22:02:00  4006.01
+2099756 2019-01-07 22:03:00  4006.01
+2099757 2019-01-07 22:04:00  4006.01
+2099758 2019-01-07 22:05:00  4005.50
+2099759 2019-01-07 22:06:00  4005.99
+```
