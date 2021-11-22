@@ -57,3 +57,23 @@ This should call the function from_numpy from the file and give the next output:
 7 -0.359553 -0.813146 -1.726283
 8  0.177426 -0.401781 -1.630198
 ```
+
+## 1-from_dictionary.py
+This is a script that creates a dictionary and then creates a pd.DataFrame from that
+dictionary. To test the file use the next code:
+
+```
+df = __import__('1-from_dictionary').df
+
+print(df)
+```
+
+This should import the variable df from 1-from_dictionary.py and give the next output:
+
+```
+   First Second
+A    0.0    one
+B    0.5    two
+C    1.0  three
+D    1.5   four
+```
