@@ -1,11 +1,12 @@
 # Deep Q-Learning
+
 Deep Q-Learning combines the concepts of Q-Learning and Depp Neural Networks to reduce the performance costs of only using Q-Learning.
 
 The idea of this project is to apply the concepts of policy network, replay memory and target network while using keras-rl to train an agent to play atari's breakout.
 
 # Usage & Requirements
 
-This repository was created and coded using ubuntu xenial64(which comes with python 3.5.2) and anaconda 1.5.1 (latest version to support python 3.5.2). To test this repository is necessary to use a virtual environment using anaconda with the following requirements:
+This repository was created and coded using ubuntu xenial64(which comes with python 3.5.2) and anaconda 4.2.0 (latest version to include python 3.5). To test this repository is necessary to use a virtual environment using anaconda with the following requirements:
 
 ```
 numpy==1.18.5
