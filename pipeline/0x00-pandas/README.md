@@ -190,3 +190,16 @@ This script sorts a pd.DataFrame by the High price in descending order. Executin
 1543349  1513514160  19891.00  19891.99  19890.99  19891.99      1.336512       26584.930278    19891.272886
 1543353  1513514400  19891.99  19891.99  19876.22  19884.99     19.925151      396292.881750    19889.078007
 ```
+
+## 8-prune.py
+
+This script removes the entries in the pd.DataFrame where _Close_ is _NaN_. Executing this file, using Bitcoin's coinbase dataset from _2014-12-01_ to _2019-01-09_, should give this output:
+
+```
+       Timestamp   Open   High    Low  Close  Volume_(BTC)  Volume_(Currency)  Weighted_Price
+0     1417411980  300.0  300.0  300.0  300.0      0.010000            3.00000           300.0
+7     1417412400  300.0  300.0  300.0  300.0      0.010000            3.00000           300.0
+51    1417415040  370.0  370.0  370.0  370.0      0.010000            3.70000           370.0
+77    1417416600  370.0  370.0  370.0  370.0      0.026556            9.82555           370.0
+1436  1417498140  377.0  377.0  377.0  377.0      0.010000            3.77000           377.0
+```
