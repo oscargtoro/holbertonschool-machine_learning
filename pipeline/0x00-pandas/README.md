@@ -1,6 +1,6 @@
 # 0x00. Pandas
 
-This project helped me understand how to analyze and manipulate data using the python  library pandas.
+This project helped me understand how to analyze and manipulate data using the python library pandas.
 
 The objectives of this project are to answer and understand the next concepts:
 
@@ -23,7 +23,9 @@ The objectives of this project are to answer and understand the next concepts:
 This files in this project were coded and tested with python 3.5.\*, numpy 1.15 and pandas 0.24. All this requirements can be found in the requirements yml file, a virtual environment was created using conda 4.3.30 (latest version to support python 3.5.\*).
 
 # Files
+
 ## 0-from_numpy.py
+
 Creates a pd.DataFrame from a np.ndarray. Returns a newly created pd.DataFrame. To test the file use the next code:
 
 ```
@@ -59,6 +61,7 @@ This should call the function from_numpy from the file and give the next output:
 ```
 
 ## 1-from_dictionary.py
+
 This is a script that creates a dictionary and then creates a pd.DataFrame from that
 dictionary. To test the file use the next code:
 
@@ -79,7 +82,8 @@ D    1.5   four
 ```
 
 ## 2-from_file.py
-File that contains the function *from_file*, this function loads a csv file to create a dataframe (a delimiter must be especified). To test the file the next code can be used:
+
+File that contains the function _from_file_, this function loads a csv file to create a dataframe (a delimiter must be especified). To test the file the next code can be used:
 
 ```
 from_file = __import__('2-from_file').from_file
@@ -90,7 +94,7 @@ df2 = from_file('bitstampUSD_1-min_data_2012-01-01_to_2020-04-22.csv', ',')
 print(df2.tail())
 ```
 
-Using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09* and bitstamp dataset from *2012-01-01* to *2020-04-22* , this should import the function from_file from the file 2-from_file.py and give the next output:
+Using Bitcoin's coinbase dataset from _2014-12-01_ to _2019-01-09_ and bitstamp dataset from _2012-01-01_ to _2020-04-22_ , this should import the function from_file from the file 2-from_file.py and give the next output:
 
 ```
     Timestamp   Open   High    Low  Close  Volume_(BTC)  Volume_(Currency)  Weighted_Price
@@ -108,13 +112,14 @@ Using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09* and bitstamp 
 ```
 
 ## 3-rename.py
+
 This file contains a script that performs the following:
 
 - Renames the column Timestamp to Datetime.
 - Converts the timestamp values to datatime values.
 - Displays only the Datetime and Close columns.
 
-Executing this file, using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09*, should give this output:
+Executing this file, using Bitcoin's coinbase dataset from _2014-12-01_ to _2019-01-09_, should give this output:
 
 ```
                    Datetime    Close
@@ -126,7 +131,8 @@ Executing this file, using Bitcoin's coinbase dataset from *2014-12-01* to *2019
 ```
 
 ## 4-array.py
-This script takes the last 10 rows of the columns High and Close and convert them into a *numpy.ndarray*. Executing this file, using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09*, should give this output:
+
+This script takes the last 10 rows of the columns High and Close and convert them into a _numpy.ndarray_. Executing this file, using Bitcoin's coinbase dataset from _2014-12-01_ to _2019-01-09_, should give this output:
 
 ```
 [[4009.54 4007.01]
@@ -142,7 +148,8 @@ This script takes the last 10 rows of the columns High and Close and convert the
 ```
 
 ## 5-slice.py
-This script slices a *pd.DataFrame* along the columns High, Low, Close, and Volume_(BTC), taking every 60th row. Executing this file, using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09*, should give this output:
+
+This script slices a _pd.DataFrame_ along the columns High, Low, Close, and Volume\_(BTC), taking every 60th row. Executing this file, using Bitcoin's coinbase dataset from _2014-12-01_ to _2019-01-09_, should give this output:
 
 ```
             High      Low    Close  Volume_(BTC)
@@ -154,7 +161,8 @@ This script slices a *pd.DataFrame* along the columns High, Low, Close, and Volu
 ```
 
 ## 6-flip_switch.py
-This script alters a *pd.DataFrame* such that the rows and columns are transposed and the data is sorted in reverse chronological order. Executing this file, using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09*, should give this output:
+
+This script alters a _pd.DataFrame_ such that the rows and columns are transposed and the data is sorted in reverse chronological order. Executing this file, using Bitcoin's coinbase dataset from _2014-12-01_ to _2019-01-09_, should give this output:
 
 ```
                         2099759       2099758       2099757       2099756  ...       3             2             1             0
@@ -168,4 +176,17 @@ Volume_(Currency)  7.021184e+03  1.081424e+04  4.775647e+03  3.614083e+03  ...  
 Weighted_Price     4.005746e+03  4.005720e+03  4.006004e+03  4.006017e+03  ...           NaN           NaN           NaN  3.000000e+02
 
 [8 rows x 2099760 columns]
+```
+
+## 7-high.py
+
+This script sorts a pd.DataFrame by the High price in descending order. Executing this file, using Bitcoin's coinbase dataset from _2014-12-01_ to _2019-01-09_, should give this output:
+
+```
+          Timestamp      Open      High       Low     Close  Volume_(BTC)  Volume_(Currency)  Weighted_Price
+1543350  1513514220  19891.99  19891.99  19891.98  19891.98      3.323210       66105.250870    19891.984712
+1543352  1513514340  19891.99  19891.99  19891.98  19891.98      9.836946      195676.363110    19891.983294
+1543351  1513514280  19891.99  19891.99  19891.98  19891.98      8.172155      162560.403740    19891.987528
+1543349  1513514160  19891.00  19891.99  19890.99  19891.99      1.336512       26584.930278    19891.272886
+1543353  1513514400  19891.99  19891.99  19876.22  19884.99     19.925151      396292.881750    19889.078007
 ```
