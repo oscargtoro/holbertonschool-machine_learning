@@ -152,3 +152,20 @@ This script slices a *pd.DataFrame* along the columns High, Low, Close, and Volu
 2099640  4017.00  4016.99  4017.00      2.362372
 2099700  4014.78  4013.50  4014.72      1.291557
 ```
+
+## 6-flip_switch.py
+This script alters a *pd.DataFrame* such that the rows and columns are transposed and the data is sorted in reverse chronological order. Executing this file, using Bitcoin's coinbase dataset from *2014-12-01* to *2019-01-09*, should give this output:
+
+```
+                        2099759       2099758       2099757       2099756  ...       3             2             1             0
+Timestamp          1.546899e+09  1.546899e+09  1.546899e+09  1.546899e+09  ...  1.417412e+09  1.417412e+09  1.417412e+09  1.417412e+09
+Open               4.005510e+03  4.006010e+03  4.006010e+03  4.006010e+03  ...           NaN           NaN           NaN  3.000000e+02
+High               4.006010e+03  4.006010e+03  4.006010e+03  4.006570e+03  ...           NaN           NaN           NaN  3.000000e+02
+Low                4.005510e+03  4.005500e+03  4.006000e+03  4.006000e+03  ...           NaN           NaN           NaN  3.000000e+02
+Close              4.005990e+03  4.005500e+03  4.006010e+03  4.006010e+03  ...           NaN           NaN           NaN  3.000000e+02
+Volume_(BTC)       1.752778e+00  2.699700e+00  1.192123e+00  9.021637e-01  ...           NaN           NaN           NaN  1.000000e-02
+Volume_(Currency)  7.021184e+03  1.081424e+04  4.775647e+03  3.614083e+03  ...           NaN           NaN           NaN  3.000000e+00
+Weighted_Price     4.005746e+03  4.005720e+03  4.006004e+03  4.006017e+03  ...           NaN           NaN           NaN  3.000000e+02
+
+[8 rows x 2099760 columns]
+```
