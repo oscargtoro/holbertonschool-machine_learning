@@ -415,3 +415,25 @@ min    6.000000e-02  6.000000e-02  6.000000e-02  6.000000e-02  1.000000e-08     
 75%    6.322630e+03  6.324010e+03  6.321090e+03  6.322670e+03  7.600965e+00       1.972392e+04    6.322550e+03
 max    1.989199e+04  1.989199e+04  1.989198e+04  1.989199e+04  1.563267e+03       1.997076e+07    1.989199e+04
 ```
+
+## 14-visualize.py
+
+This script plots the Bitcoin's coinbase dataset from _2014-12-01_ to _2019-01-09_ with the next requirements:
+
+- The column Weighted_Price is be removed.
+- The column Timestamp is renamed to Date
+- The timestamp values are converted to date values
+- Thee data frame is index on Date
+- Missing values in Close are set to the previous row value
+- Missing values in High, Low, Open are set to the same row’s Close value
+- Missing values in Volume_(BTC) and Volume_(Currency) are set to 0
+- Plots the data from 2017 and beyond at daily intervals and group the values of the same day such that:
+
+    - High: max
+    - Low: min
+    - Open: mean
+    - Close: mean
+    - Volume(BTC): sum
+    - Volume(Currency): sum
+
+![Figure_1](img/Figure_1.png)
