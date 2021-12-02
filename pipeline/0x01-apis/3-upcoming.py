@@ -11,15 +11,18 @@ import time
 if __name__ == "__main__":
     now = int(time.time())
     upcoming = {}
+    dates = []
     url = 'https://api.spacexdata.com/v4/'
     launches = requests.get('{}launches/upcoming'.format(url)).json()
     for launch in launches:
-        # if launch['date_unix'] < now:
-        #     continue
+        if launch['date_unix'] < now:
+            continue
         if not upcoming:
             upcoming = launch
         else:
-            if launch['date_unix'] < upcoming['date_unix']:
+            if launch['date_unix'] == upcoming['date_unix']:
+                continue
+            if launch['date_unix'] - now < upcoming['date_unix'] - now:
                 upcoming = launch
     rocket = requests.get('{}rockets/{}'.format(
         url, upcoming["rocket"])
