@@ -19,6 +19,7 @@ if __name__ == '__main__':
             rockets.update({rocket_name: 1})
         else:
             rockets.update({rocket_name: rockets[rocket_name] + 1})
-    srtd_rockets = sorted(rockets.items(), key=lambda i: i[1], reverse=True)
+    srtd_rockets = sorted(rockets.items(), key=lambda i: i[0])
+    srtd_rockets.sort(key=lambda i: i[1], reverse=True)
     for rocket in srtd_rockets:
         print('{}: {}'.format(rocket[0], rocket[1]))
