@@ -16,7 +16,6 @@ if __name__ == "__main__":
     for launch in launches:
         if launch['date_unix'] < now:
             continue
-        print(launch['date_local'])
         if not upcoming:
             upcoming = launch
         else:
