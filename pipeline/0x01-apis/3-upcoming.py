@@ -12,7 +12,7 @@ if __name__ == "__main__":
     now = int(time.time())
     upcoming = {}
     url = 'https://api.spacexdata.com/v4/'
-    launches = requests.get(f'{url}launches/upcoming').json()
+    launches = requests.get('{}launches/upcoming'.format(url)).json()
     for launch in launches:
         if launch['date_unix'] < now:
             continue
@@ -24,10 +24,14 @@ if __name__ == "__main__":
                 upcoming = launch
     launch_name = upcoming['name']
     launch_date = upcoming['date_local']
-    rocket = requests.get(f'{url + "rockets/" + upcoming["rocket"]}').json()
-    launchpad = requests.get(
-        f'{url + "launchpads/" + upcoming["launchpad"]}'
+    rocket = requests.get('{}rockets/{}'.format(
+        url, upcoming["rocket"])
     ).json()
+
+    launchpad = requests.get(
+        '{}launchpads/{}'.format(url, upcoming["launchpad"])
+    ).json()
+
     info = '{} ({}) {} - {} ({})'.format(
         upcoming['name'],
         upcoming['date_local'],
