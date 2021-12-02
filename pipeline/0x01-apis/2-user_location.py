@@ -9,7 +9,8 @@ import time
 
 
 if __name__ == "__main__":
-    r = requests.get(sys.argv[1])
+    params = {'Accept': "application/vnd.github.v3+json"}
+    r = requests.get(sys.argv[1], params=params)
     if r.status_code == requests.codes.not_found:
         print('Not found')
     if r.status_code == requests.codes.forbidden:
