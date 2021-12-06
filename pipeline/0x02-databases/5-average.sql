@@ -3,4 +3,4 @@
 -- The result column will be named average.
 -- The database name must be passed as an argument of the mysql command.
 
-SELECT ROUND(AVG(score), 2) AS average FROM second_table;
+SELECT AVG(score) AS average FROM second_table;
