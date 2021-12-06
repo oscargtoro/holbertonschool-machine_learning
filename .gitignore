@@ -10,3 +10,4 @@
 !*.yml
 !Requirements.txt
 !pipeline/0x00-pandas/img/Figure_1.png
+!*.sql
