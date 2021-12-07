@@ -3,7 +3,7 @@
 -- are sorted in descending order by the number of shows linked.
 -- The database name must be passed as an argument of the mysql command.
 
-SELECT g.name as genre, COUNT(sg.show_id) as number_of_shows
+SELECT g.name AS genre, COUNT(sg.show_id) AS number_of_shows
 FROM tv_genres AS g
 INNER JOIN tv_show_genres AS sg ON g.id = sg.genre_id
 GROUP BY g.name
