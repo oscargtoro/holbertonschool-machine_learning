@@ -1,5 +1,4 @@
-// Script that lists all documents with name="Holberton school" in the
-// collection school.
+// Script that displays the number of documents in the collection school.
 // The database name must be passed as option of mongo command.
 
-db.school.find( {name: 'Holberton school'} )
+db.school.count()
