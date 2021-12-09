@@ -16,4 +16,5 @@ def list_all(mongo_collection):
         An empty list if no document in the collection.
     '''
 
-    return []
+    documents = mongo_collection.find()
+    return documents
