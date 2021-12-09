@@ -1,1 +1,10 @@
-// empty task file
+// Script that adds a new attribute to document(s) with
+// name="Holberton school" in the collection school.
+// The database name must be passed as option of mongo command
+
+db.school.updateMany(
+    {name: 'Holberton school'},
+    {$set: {
+        address: '972 Mission street'
+        } }
+    )
