@@ -1,14 +1,11 @@
 *
 !*/
 *pycache*
-!*.py
 ![0-9]*.c
 ![0-9]*.py
 *main*
 !*.md
 !.gitignore
-!*.yml
-!Requirements.txt
+!environment.yml
+!requirements.txt
 !pipeline/0x00-pandas/img/Figure_1.png
-!*.sql
-!pipeline/0x02-databases/[0-9]*
