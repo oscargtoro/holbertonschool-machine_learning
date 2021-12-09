@@ -1,1 +1,4 @@
-// empty task file
+// Lists all documents in the collection school.
+// The database name must be passed as option of mongo command.
+
+db.school.find()
