@@ -1,1 +1,5 @@
-// empty task file
+// Script that displays the number of documents in the collection
+// school.
+// The database name must be passed as option of mongo command.
+
+db.school.count()
