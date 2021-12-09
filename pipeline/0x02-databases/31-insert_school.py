@@ -14,4 +14,4 @@ def insert_school(mongo_collection, **kwargs):
         kwargs: list of arguments to be inserted
     '''
 
-    return
+    return mongo_collection.insert( kwargs )
