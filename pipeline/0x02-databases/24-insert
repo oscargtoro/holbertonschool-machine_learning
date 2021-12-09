@@ -1,1 +1,5 @@
-// empty task file
+// Inserts a document in the collection school with the attribute name and
+// value "Holberton School".
+// The database name must be passed as option of mongo command.
+
+db.school.insertOne( {name: 'Holberton school'} );
